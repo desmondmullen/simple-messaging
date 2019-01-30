@@ -206,9 +206,7 @@ $(document).ready(function () {
     //------------------------------------------------
     function getLocation() {
         if (navigator.geolocation) {
-            let thePosition = navigator.geolocation.getCurrentPosition(showPosition);
-            userLatitude = thePosition.coords.latitude;
-            userLongitude = thePosition.coords.longitude;
+            navigator.geolocation.getCurrentPosition(showPosition);
         } else {
             geolocationStatusField.text("Geolocation is not supported by this browser");
         }
@@ -232,6 +230,8 @@ $(document).ready(function () {
     }
 
     function showPosition(position) {
+        userLatitude = position.coords.latitude;
+        userLongitude = position.coords.longitude;
         let latitudeLongitude = userLatitude + "," + userLongitude;
         let mapURL = encodeURI("https://maps.googleapis.com/maps/api/staticmap?center=" + latitudeLongitude + "&zoom=14&size=400x300&sensor=false&key=AIzaSyBfFgBNA3J_iDvP2h90bVBo6REBBhuq4lQ");
 
