@@ -166,6 +166,9 @@ hr {
     label {
         margin: 5px 0px 0px 0px;
     }
+    #map-display {
+        display: none;
+    }
     .bottom-bar {
         width: 100%;
         height: 3.5ch;
