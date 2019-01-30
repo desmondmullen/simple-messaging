@@ -206,7 +206,7 @@ $(document).ready(function () {
     //------------------------------------------------
     function getLocation() {
         if (navigator.geolocation) {
-            let thePosition = navigator.geolocation.getCurrentPosition(position);
+            let thePosition = navigator.geolocation.getCurrentPosition(showPosition);
             userLatitude = thePosition.coords.latitude;
             userLongitude = thePosition.coords.longitude;
         } else {
