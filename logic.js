@@ -72,13 +72,13 @@ $(document).ready(function () {
     });
 
     database.ref(userMessagesPath).on("value", function (snapshot) {
-        let theMessageEmail = snapshot.child("users/" + userID + "/messages/email/").val(); //something!
-        let theMessageMessage = snapshot.child("users/" + userID + "/messages/message/").val(); //something!
-        let theMessageDateTime = snapshot.child("users/" + userID + "/messages/dateTime/").val(); //something!
-        let theCurrentGeolocation = snapshot.child("users/" + userID + "/messages/currentGeolocation/").val(); //something!
+        let theMessageEmail = snapshot.child("users/" + userID + "/messages/email/").val();
+        let theMessageMessage = snapshot.child("users/" + userID + "/messages/message/").val();
+        let theMessageDateTime = snapshot.child("users/" + userID + "/messages/dateTime/").val();
+        let theCurrentGeolocation = snapshot.child("users/" + userID + "/messages/currentGeolocation/").val();
         if (theMessageEmail != null) {
             $("#message-display").prepend("<span class='monospace'>" + theMessageDateTime + " <strong>" + theMessageEmail + "</strong>:</span> " + theMessageMessage);
-            if (theCurrentGeoLocation != undefined) {
+            if (theCurrentGeolocation != "Latitude: undefined, Longitude: undefined") {
                 geolocationListField.prepend(theMessageDateTime + " <strong>" + theMessageEmail + "</strong>: " + theCurrentGeolocation + "<br>");
             }
         }
