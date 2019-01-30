@@ -206,9 +206,9 @@ $(document).ready(function () {
     //------------------------------------------------
     function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position);
-            userLatitude = position.coords.latitude;
-            userLongitude = position.coords.longitude;
+            let thePosition = navigator.geolocation.getCurrentPosition(position);
+            userLatitude = thePosition.coords.latitude;
+            userLongitude = thePosition.coords.longitude;
         } else {
             geolocationStatusField.text("Geolocation is not supported by this browser");
         }
