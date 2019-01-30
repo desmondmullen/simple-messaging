@@ -33,8 +33,8 @@ $(document).ready(function () {
 
     $(".add-entry").on("click", function (event) {
         event.preventDefault();
-        let entryMessage = "<br>" + $("#input-message").val().trim();
-        $("#message-display").append(entryMessage);
+        let entryMessage = $("#input-message").val().trim() + "<br>";
+        $("#message-display").prepend(entryMessage);
         emptyInputFields();
     });
 
