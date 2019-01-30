@@ -109,15 +109,18 @@ hr {
     color: white;
 }
 
-#map-display {
+.map-display {
     position: fixed;
     bottom: 3ch;
     /*puts it just above bottom bar*/
-    /* width: 100%; */
-    /* margin: 0 auto; */
-    padding: 0;
+    width: 100%;
+    margin: 0 auto;
     left: 50%;
-    margin-left: -12.5%;
+    margin-left: -25%;
+}
+
+#map-display {
+    margin-left: 12.5%;
 }
 
 .bottom-bar {
@@ -166,7 +169,7 @@ hr {
     label {
         margin: 5px 0px 0px 0px;
     }
-    #map-display {
+    .map-display {
         display: none;
     }
     .bottom-bar {
