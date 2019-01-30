@@ -41,9 +41,16 @@ p {
 }
 
 #input-message {
-    display: inline-block;
+    display: block;
     text-align: left;
     width: 90%;
+    margin: 0 auto;
+}
+
+#add-entry-display {
+    display: block;
+    width: 100%;
+    text-align: center;
 }
 
 .login-input {
@@ -65,14 +72,14 @@ p {
     padding: 10px 0;
 }
 
-#input-message {
-    margin: 0 20px;
-}
-
 label {
     /* text-align: right; */
     font-weight: bold;
     margin: 0 20px;
+}
+
+.monospace {
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .text-align-left {
@@ -90,17 +97,6 @@ label {
 .input-entry {
     width: 10ch;
     margin: 5px;
-}
-
-#add-entry-display {
-    width: 100%;
-    text-align: center;
-}
-
-#add-entry {
-    display: inline;
-    text-align: center;
-    margin: 0 auto;
 }
 
 hr {
@@ -150,9 +146,6 @@ hr {
         /* height: 30px; */
         margin: 0;
         padding: 0;
-    }
-    #add-entry {
-        margin: 0;
     }
     label {
         margin: 5px 0px 0px 0px;

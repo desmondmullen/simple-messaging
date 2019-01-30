@@ -34,8 +34,11 @@ $(document).ready(function () {
 
     $(".add-entry").on("click", function (event) {
         event.preventDefault();
+        let todaysDate = new Date().toLocaleDateString("en-US");
+        let currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         let entryMessage = $("#input-message").val().trim() + "<br>";
         database.ref(userMessagesPath).set({
+            dateTime: todaysDate + " " + currentTime,
             email: userEmail,
             message: entryMessage
         });
@@ -43,14 +46,15 @@ $(document).ready(function () {
     });
 
     database.ref(userMessagesPath).on("value", function (snapshot) {
-        let theUser = snapshot.email;
-        let theMessage = snapshot.message;
-        let theEntry = theUser + ": " + theMessage;
-        $("#message-display").prepend(theEntry);
+        let theMessageEmail = snapshot.child("users/" + userID + "/messages/email/").val(); //something!
+        let theMessageMessage = snapshot.child("users/" + userID + "/messages/message/").val(); //something!
+        let theMessageDateTime = snapshot.child("users/" + userID + "/messages/dateTime/").val(); //something!
+        if (theMessageEmail != null) {
+            $("#message-display").prepend("<span class='monospace'>" + theMessageDateTime + " <strong>" + theMessageEmail + "</strong>:</span> " + theMessageMessage);
+        }
     }, function (errorObject) {
         console.log("entries-error: " + errorObject.code);
     });
-
 
     function emptyInputFields() {
         $("#input-message").val("");
@@ -185,5 +189,5 @@ $(document).ready(function () {
         });
     }
     initializeDatabaseReferences();
-    console.log("v1");
+    console.log("v1.5");
 });
