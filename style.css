@@ -109,6 +109,17 @@ hr {
     color: white;
 }
 
+#map-display {
+    position: fixed;
+    bottom: 3ch;
+    /*puts it just above bottom bar*/
+    /* width: 100%; */
+    /* margin: 0 auto; */
+    padding: 0;
+    left: 50%;
+    margin-left: -12.5%;
+}
+
 .bottom-bar {
     width: 100%;
     height: 3ch;
@@ -119,6 +130,11 @@ hr {
     left: 0;
     color: white;
     background-color: darkslategray;
+}
+
+#geolocation-status {
+    float: left;
+    padding-left: 10px;
 }
 
 @-ms-viewport {

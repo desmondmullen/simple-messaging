@@ -189,5 +189,46 @@ $(document).ready(function () {
         });
     }
     initializeDatabaseReferences();
+    getLocation();
+
+    //------------------------------------------------
+    var geolocationStatusField = $("#geolocation-status");
+    var mapDisplayField = $("#map-display");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            geolocationStatusField.text("Geolocation is not supported by this browser");
+        }
+    }
+
+    function showError(error) {
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                geolocationStatusField.text("User denied the request for Geolocation");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                geolocationStatusField.text("Location information is unavailable");
+                break;
+            case error.TIMEOUT:
+                geolocationStatusField.text("The request to get user location timed out");
+                break;
+            case error.UNKNOWN_ERROR:
+                geolocationStatusField.text("An unknown error occurred");
+                break;
+        }
+    }
+
+    function showPosition(position) {
+        var latlon = position.coords.latitude + "," + position.coords.longitude;
+        var img_url = encodeURI("https://maps.googleapis.com/maps/api/staticmap?center=" + latlon + "&zoom=14&size=400x300&sensor=false&key=AIzaSyBfFgBNA3J_iDvP2h90bVBo6REBBhuq4lQ");
+
+        mapDisplayField.html("<img src='" + img_url + "'>");
+        geolocationStatusField.html("Latitude: " + position.coords.latitude +
+            ", Longitude: " + position.coords.longitude);
+    }
+
+    //------------------------------------------------
     console.log("v1.5");
 });
