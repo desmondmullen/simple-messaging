@@ -93,12 +93,14 @@ $(document).ready(function () {
 
     function emptyInputFields() {
         $("#input-message").val("");
+        $("#message-display").text("");
+        $("#geolocation-list").text("");
+        $("#map-display").text("");
     };
 
     $("#sign-out").click(function () {
         doSignOut();
         emptyInputFields();
-        $("#message-display").text("");
     });
 
     emptyInputFields();
@@ -323,5 +325,5 @@ $(document).ready(function () {
     }
 
     //------------------------------------------------
-    console.log("v1.5717");
+    console.log("v1.57171");
 });
