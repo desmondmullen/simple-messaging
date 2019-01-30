@@ -322,8 +322,6 @@ $(document).ready(function () {
             ", Longitude: " + userLongitude);
     }
 
-    window.onload = initApp;
-
     //------------------------------------------------
-    console.log("v1.5715");
+    console.log("v1.5717");
 });
