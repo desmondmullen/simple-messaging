@@ -15,6 +15,7 @@ $(document).ready(function () {
     var userEmail;
     var userStatisticsPath;
     var userUsersPath;
+    var userMessagesPath;
 
     function displayApplicationOrAuthentication() {
         if (userSignedIn === true) {
@@ -34,9 +35,22 @@ $(document).ready(function () {
     $(".add-entry").on("click", function (event) {
         event.preventDefault();
         let entryMessage = $("#input-message").val().trim() + "<br>";
-        $("#message-display").prepend(entryMessage);
+        database.ref(userMessagesPath).set({
+            email: userEmail,
+            message: entryMessage
+        });
         emptyInputFields();
     });
+
+    database.ref(userMessagesPath).on("value", function (snapshot) {
+        let theUser = snapshot.email;
+        let theMessage = snapshot.message;
+        let theEntry = theUser + ": " + theMessage;
+        $("#message-display").prepend(theEntry);
+    }, function (errorObject) {
+        console.log("entries-error: " + errorObject.code);
+    });
+
 
     function emptyInputFields() {
         $("#input-message").val("");
@@ -141,6 +155,7 @@ $(document).ready(function () {
                 userSignedIn = true;
                 userStatisticsPath = "users/" + userID + "/statistics";
                 userUsersPath = "users/" + userID + "/info";
+                userMessagesPath = "users/" + userID + "/messages";
                 displayApplicationOrAuthentication();
                 document.getElementById("sign-in").textContent = "Sign out";
                 database.ref(userUsersPath).set({
