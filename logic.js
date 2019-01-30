@@ -61,7 +61,7 @@ $(document).ready(function () {
             currentGeolocation: "Latitude: " + userLatitude +
                 ", Longitude: " + userLongitude
         });
-        emptyInputFields();
+        $("#input-message").val("");
     });
 
     $("#send-link").on("click", function () {
@@ -325,5 +325,5 @@ $(document).ready(function () {
     }
 
     //------------------------------------------------
-    console.log("v1.57171");
+    console.log("v1.57172");
 });
