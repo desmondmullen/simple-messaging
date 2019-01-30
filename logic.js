@@ -219,7 +219,8 @@ $(document).ready(function () {
                     email: userEmail,
                     signedIn: true
                 });
-
+                displayApplicationOrAuthentication();
+                getLocation();
             } else {
                 // User is signed out.
                 userSignedIn = false;
@@ -242,7 +243,6 @@ $(document).ready(function () {
         });
     }
     initializeDatabaseReferences();
-    getLocation();
 
     //------------------------------------------------
     function getLocation() {
@@ -282,5 +282,5 @@ $(document).ready(function () {
     }
 
     //------------------------------------------------
-    console.log("v1.57");
+    console.log("v1.571");
 });
