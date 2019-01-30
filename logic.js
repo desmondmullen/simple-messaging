@@ -184,6 +184,38 @@ $(document).ready(function () {
         });
     }
 
+    function handleSignIn() {
+        if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+            // Disable the sign-in button during async sign-in tasks.
+            document.getElementById("sign-in").disabled = true;
+            // Get the email if available.
+            var email = window.localStorage.getItem('emailForSignIn');
+            if (!email) {
+                // User opened the link on a different device. To prevent session fixation attacks, ask the
+                // user to provide the associated email again. For example:
+                email = window.prompt('Please provide the email you\'d like to sign-in with for confirmation.');
+            }
+            if (email) {
+                firebase.auth().signInWithEmailLink(email, window.location.href).then(function (result) {
+                    // Clear the URL to remove the sign-in link parameters.
+                    if (history && history.replaceState) {
+                        window.history.replaceState({}, document.title, window.location.href.split('?')[0]);
+                    }
+                    // Clear email from storage.
+                    window.localStorage.removeItem('emailForSignIn');
+                    var user = result.user;
+                    var isNewUser = result.additionalUserInfo.isNewUser;
+                    console.log(result)
+                }).catch(function (error) {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    handleError(error);
+                });
+            }
+        }
+    }
+
+
     function handleError(error) {
         alert('Error: ' + error.message);
         console.log(error);
@@ -208,8 +240,14 @@ $(document).ready(function () {
 
     //initializeDatabaseReferences handles setting up UI event listeners and registering Firebase auth listeners:
     function initializeDatabaseReferences() {
+        // Restore the previously used value of the email.
+        // var email = window.localStorage.getItem('emailForSignIn');
+        // document.getElementById('email').value = email;
+
+        // Automatically signs the user-in using the link.
+        handleSignIn();
+
         firebase.auth().onAuthStateChanged(function (user) {
-            //exclude silent
             if (user) {
                 // User is signed in.
                 userEmail = user.email;
@@ -232,12 +270,10 @@ $(document).ready(function () {
                 displayApplicationOrAuthentication();
                 document.getElementById("sign-in").textContent = "Sign in";
             }
-            // document.getElementById("sign-in").disabled = true;
             document.getElementById("sign-in").disabled = false;
         });
 
         $(document.body).on("click", "#sign-in", function () {
-            // preventDefault();
             toggleSignIn();
         });
         $(document.body).on("click", "#create-account", function () {
@@ -286,6 +322,8 @@ $(document).ready(function () {
             ", Longitude: " + userLongitude);
     }
 
+    window.onload = initApp;
+
     //------------------------------------------------
-    console.log("v1.5712");
+    console.log("v1.5715");
 });
