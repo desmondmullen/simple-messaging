@@ -78,7 +78,9 @@ $(document).ready(function () {
         let theCurrentGeolocation = snapshot.child("users/" + userID + "/messages/currentGeolocation/").val(); //something!
         if (theMessageEmail != null) {
             $("#message-display").prepend("<span class='monospace'>" + theMessageDateTime + " <strong>" + theMessageEmail + "</strong>:</span> " + theMessageMessage);
-            geolocationListField.prepend(theMessageDateTime + " <strong>" + theMessageEmail + "</strong>: " + theCurrentGeolocation + "<br>");
+            if (theCurrentGeoLocation != undefined) {
+                geolocationListField.prepend(theMessageDateTime + " <strong>" + theMessageEmail + "</strong>: " + theCurrentGeolocation + "<br>");
+            }
         }
     }, function (errorObject) {
         console.log("entries-error: " + errorObject.code);
