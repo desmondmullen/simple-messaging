@@ -71,6 +71,11 @@ $(document).ready(function () {
         }
     });
 
+    $("#test-only").on("click", function () {
+        displayApplicationOrAuthentication();
+        console.log(userSignedIn);
+    });
+
     database.ref(userMessagesPath).on("value", function (snapshot) {
         let theMessageEmail = snapshot.child("users/" + userID + "/messages/email/").val();
         let theMessageMessage = snapshot.child("users/" + userID + "/messages/message/").val();
@@ -282,5 +287,5 @@ $(document).ready(function () {
     }
 
     //------------------------------------------------
-    console.log("v1.5711");
+    console.log("v1.5712");
 });
