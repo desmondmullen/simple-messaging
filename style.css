@@ -116,11 +116,17 @@ hr {
     width: 100%;
     margin: 0 auto;
     left: 50%;
-    margin-left: -25%;
+    margin-left: -22.5%;
+}
+
+#geolocation-list {
+    height: 7ch;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 #map-display {
-    margin-left: 12.5%;
+    margin-left: 200px;
 }
 
 .bottom-bar {
