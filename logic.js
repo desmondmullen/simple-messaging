@@ -9,6 +9,7 @@ $(document).ready(function () {
         messagingSenderId: "634303355719"
     };
     firebase.initializeApp(config);
+
     var database = firebase.database();
     var userID;
     var userSignedIn;
@@ -16,6 +17,11 @@ $(document).ready(function () {
     var userStatisticsPath;
     var userUsersPath;
     var userMessagesPath;
+    var geolocationListField = $("#geolocation-list");
+    var geolocationStatusField = $("#geolocation-status");
+    var mapDisplayField = $("#map-display");
+
+
 
     function displayApplicationOrAuthentication() {
         if (userSignedIn === true) {
@@ -40,7 +46,9 @@ $(document).ready(function () {
         database.ref(userMessagesPath).set({
             dateTime: todaysDate + " " + currentTime,
             email: userEmail,
-            message: entryMessage
+            message: entryMessage,
+            currentGeolocation: "Latitude: " + position.coords.latitude +
+                ", Longitude: " + position.coords.longitude
         });
         emptyInputFields();
     });
@@ -49,8 +57,10 @@ $(document).ready(function () {
         let theMessageEmail = snapshot.child("users/" + userID + "/messages/email/").val(); //something!
         let theMessageMessage = snapshot.child("users/" + userID + "/messages/message/").val(); //something!
         let theMessageDateTime = snapshot.child("users/" + userID + "/messages/dateTime/").val(); //something!
+        let theCurrentGeolocation = snapshot.child("users/" + userID + "/messages/currentGeolocation/").val(); //something!
         if (theMessageEmail != null) {
             $("#message-display").prepend("<span class='monospace'>" + theMessageDateTime + " <strong>" + theMessageEmail + "</strong>:</span> " + theMessageMessage);
+            geolocationListField.prepend(theMessageDateTime + " <strong>" + theMessageEmail + "</strong>: " + theCurrentGeolocation);
         }
     }, function (errorObject) {
         console.log("entries-error: " + errorObject.code);
@@ -192,9 +202,6 @@ $(document).ready(function () {
     getLocation();
 
     //------------------------------------------------
-    var geolocationStatusField = $("#geolocation-status");
-    var mapDisplayField = $("#map-display");
-
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
