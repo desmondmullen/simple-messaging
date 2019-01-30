@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=yes'>
+    <meta charset="UTF-8">
+    <title>Simple Messaging</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase.js"></script>
+    <script src="logic.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h3>Simple Messaging</h3>
+    </header>
+    <div id="authentication">
+        <div class="login-background">
+            <h3>Login</h3>
+            <p><strong>Sign in</strong> to an existing account or <strong>create a new account</strong>.<br><strong>To
+                    reset your password</strong>, enter your email address and leave password blank.</p>
+            <form id="login-form"><input type="email" id="email" class="login-input" name="email" placeholder="Email" /><input
+                    type="password" id="password" class="login-input" name="password" placeholder="Password" /><br><button
+                    disabled id="sign-in" class="sign-in" name="signin">Sign
+                    In</button></form><button id="create-account" name="createaccount">Create Account</button><button
+                id="password-reset" name="passwordreset">Reset Password</button>
+        </div>
+        <br>
+        <div class="bottom-bar">
+            <section class='copyright'>&copy; 2019 <a href='https://desmondmullen.com' target='_blank' class='copyright-link'>desmondmullen.com</a></section>
+        </div>
+    </div>
+
+    <div id="application">
+        <div id="signout-button"><button id="sign-out">Sign Out</button></div>
+        <form class="input-form">
+            <label for="input-message" class="label-message">Message:</label> <input id="input-message" type="text"
+                name="input-message"><br>
+            <div id="add-entry-display"><button id="add-entry" class="add-entry">Add Message</button>
+            </div>
+        </form>
+        <div id="message-display"></div>
+        <div class="bottom-bar">
+            <section class='copyright'>&copy; 2019 <a href='https://desmondmullen.com' target='_blank' class='copyright-link'>desmondmullen.com</a></section>
+        </div>
+    </div>
+</body>
+
+</html>

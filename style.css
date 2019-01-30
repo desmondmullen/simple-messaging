@@ -1,0 +1,182 @@
+body {
+    margin: 5px 20px;
+}
+
+header {
+    text-align: center;
+    background-color: gold;
+}
+
+button {
+    margin: 10px 5px;
+}
+
+p {
+    width: 70%;
+    margin-left: 15%;
+}
+
+#signout-button {
+    text-align: right;
+    position: relative;
+    top: -5px;
+    right: 5px;
+}
+
+#authentication {
+    text-align: center;
+    width: 100%;
+}
+
+#authentication p {
+    font-style: italic;
+}
+
+.login-background h3 {
+    padding-top: 10px;
+}
+
+.login-background {
+    background-color: palevioletred;
+}
+
+#input-message {
+    display: inline-block;
+    text-align: left;
+    width: 90%;
+}
+
+.login-input {
+    display: inline;
+    text-align: left;
+    margin: 0 5px 0 5px;
+}
+
+#login-form {
+    display: inline;
+}
+
+#application {
+    display: none;
+}
+
+.input-form {
+    background-color: lightskyblue;
+    padding: 10px 0;
+}
+
+#input-message {
+    margin: 0 20px;
+}
+
+label {
+    /* text-align: right; */
+    font-weight: bold;
+    margin: 0 20px;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.input-entry {
+    width: 10ch;
+    margin: 5px;
+}
+
+#add-entry-display {
+    width: 100%;
+    text-align: center;
+}
+
+#add-entry {
+    display: inline;
+    text-align: center;
+    margin: 0 auto;
+}
+
+hr {
+    margin: 5px;
+    border-top: 1px solid black;
+    /* padding: 0; */
+}
+
+.copyright-link {
+    color: white;
+}
+
+.bottom-bar {
+    width: 100%;
+    height: 3ch;
+    text-align: right;
+    position: fixed;
+    bottom: 0;
+    padding-right: 10px;
+    left: 0;
+    color: white;
+    background-color: darkslategray;
+}
+
+@-ms-viewport {
+    width: device-width;
+}
+
+@media only screen and (max-width: 900px) {
+    body {
+        margin: 5px 0px 4.5ch 0px;
+    }
+    h3 {
+        font-size: x-large;
+        margin: 5px 0 0 0;
+    }
+    p {
+        width: 100%;
+        margin-left: 0;
+    }
+    button {
+        padding: 5px;
+    }
+    #signout-button {
+        float: none;
+        text-align: center;
+        /* height: 30px; */
+        margin: 0;
+        padding: 0;
+    }
+    #add-entry {
+        margin: 0;
+    }
+    label {
+        margin: 5px 0px 0px 0px;
+    }
+    .bottom-bar {
+        width: 100%;
+        height: 3.5ch;
+        text-align: right;
+        font-size: small;
+        position: fixed;
+        bottom: 0;
+        padding: 5px;
+        left: 0;
+        color: white;
+        background-color: darkslategray;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    /*really small margins for better layout on mobile in portrait*/
+}
+
+@media screen and (max-width: 767px) {}
+
+@media only screen and (max-width: 600px) {
+    /*really small margins for better layout on mobile in portrait*/
+}

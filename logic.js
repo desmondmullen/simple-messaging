@@ -1,0 +1,174 @@
+$(document).ready(function () {
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyC3DrasuTKwDHLaaqV_hdlVnnLDqdTY1gE",
+        authDomain: "dsm-simple-messaging.firebaseapp.com",
+        databaseURL: "https://dsm-simple-messaging.firebaseio.com",
+        projectId: "dsm-simple-messaging",
+        storageBucket: "dsm-simple-messaging.appspot.com",
+        messagingSenderId: "634303355719"
+    };
+    firebase.initializeApp(config);
+    var database = firebase.database();
+    var userID;
+    var userSignedIn;
+    var userEmail;
+    var userStatisticsPath;
+    var userUsersPath;
+
+    function displayApplicationOrAuthentication() {
+        if (userSignedIn === true) {
+            //displayApplication
+            $("#application").css("display", "inline");
+            $("#authentication").css("display", "none");
+            $("#sign-out").css("display", "inline");
+        } else {
+            //displayAuthentication
+            $("#application").css("display", "none");
+            $("#authentication").css("display", "inline-block");
+            $("#sign-out").css("display", "none");
+        }
+    };
+    displayApplicationOrAuthentication()
+
+    $(".add-entry").on("click", function (event) {
+        event.preventDefault();
+        let entryMessage = "<br>" + $("#input-message").val().trim();
+        $("#message-display").append(entryMessage);
+        emptyInputFields();
+    });
+
+    function emptyInputFields() {
+        $("#input-message").val("");
+    };
+
+    $("#sign-out").click(function () {
+        doSignOut();
+        emptyInputFields();
+        $("#message-display").text("");
+    });
+
+    emptyInputFields();
+
+    //---------------------------------------------
+    function toggleSignIn() {
+        if (firebase.auth().currentUser) {
+            //do signout
+            doSignOut();
+        } else {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            if (email.length < 4) {
+                alert("Please enter an email address.");
+                return;
+            }
+            if (password.length < 4) {
+                alert("Please enter a password.");
+                return;
+            }
+            firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                if (errorCode === "auth/wrong-password") {
+                    alert("Password is incorrect.");
+                } else {
+                    alert(errorMessage);
+                }
+                console.log(error);
+                document.getElementById("sign-in").disabled = false;
+            });
+        }
+        document.getElementById("sign-in").disabled = true;
+    }
+
+    function doSignOut() {
+        firebase.auth().signOut();
+        database.ref(userUsersPath).set({
+            email: userEmail,
+            signedIn: false
+        });
+    };
+
+    //Handles the sign up button press.
+    function handleSignUp() {
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        if (email.length < 4) {
+            alert("Please enter an email address.");
+            return;
+        }
+        if (password.length < 4) {
+            alert("Please enter a password.");
+            return;
+        }
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            if (errorCode == "auth/weak-password") {
+                alert("The password must be at least 6 characters.");
+            } else {
+                alert(errorMessage);
+            }
+            console.log(error);
+        });
+    }
+
+    function sendPasswordReset() {
+        var email = document.getElementById("email").value;
+        firebase.auth().sendPasswordResetEmail(email).then(function () {
+            alert("If there is an account with the address '" + email + "', a password reset link will be sent to that address.");
+        }).catch(function (error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            if (errorCode == "auth/invalid-email") {
+                alert(errorMessage);
+            } else if (errorCode == "auth/user-not-found") {
+                alert(errorMessage);
+            }
+            console.log(error);
+        });
+    }
+
+    //initializeDatabaseReferences handles setting up UI event listeners and registering Firebase auth listeners:
+    function initializeDatabaseReferences() {
+        firebase.auth().onAuthStateChanged(function (user) {
+            //exclude silent
+            if (user) {
+                // User is signed in.
+                userEmail = user.email;
+                userID = user.uid;
+                userSignedIn = true;
+                userStatisticsPath = "users/" + userID + "/statistics";
+                userUsersPath = "users/" + userID + "/info";
+                displayApplicationOrAuthentication();
+                document.getElementById("sign-in").textContent = "Sign out";
+                database.ref(userUsersPath).set({
+                    email: userEmail,
+                    signedIn: true
+                });
+
+            } else {
+                // User is signed out.
+                userSignedIn = false;
+                displayApplicationOrAuthentication();
+                document.getElementById("sign-in").textContent = "Sign in";
+            }
+            // document.getElementById("sign-in").disabled = true;
+            document.getElementById("sign-in").disabled = false;
+        });
+
+        $(document.body).on("click", "#sign-in", function () {
+            // preventDefault();
+            toggleSignIn();
+        });
+        $(document.body).on("click", "#create-account", function () {
+            handleSignUp();
+        });
+        $(document.body).on("click", "#password-reset", function () {
+            sendPasswordReset();
+        });
+    }
+    initializeDatabaseReferences();
+    console.log("v1");
+});
