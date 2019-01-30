@@ -167,7 +167,7 @@ $(document).ready(function () {
             // Save the email locally so you don’t need to ask the user for it again if they open the link on the same device.
             window.localStorage.setItem('emailForSignIn', theEmailAddress);
             // The link was successfully sent. Inform the user.
-            alert('An email was sent to ' + theEmailAddress + '. Please use the link in the email to sign-in.');
+            alert('An email was sent to ' + theEmailAddress + '. This instance can be accessed by anyone using the link in that email.');
             // [START_EXCLUDE]
             // Re-enable the sign-in button.
             document.getElementById("sign-in").disabled = false;
@@ -282,5 +282,5 @@ $(document).ready(function () {
     }
 
     //------------------------------------------------
-    console.log("v1.571");
+    console.log("v1.5711");
 });
