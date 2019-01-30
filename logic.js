@@ -17,6 +17,8 @@ $(document).ready(function () {
     var userStatisticsPath;
     var userUsersPath;
     var userMessagesPath;
+    var userLatitude;
+    var userLongitude;
     var geolocationListField = $("#geolocation-list");
     var geolocationStatusField = $("#geolocation-status");
     var mapDisplayField = $("#map-display");
@@ -47,8 +49,8 @@ $(document).ready(function () {
             dateTime: todaysDate + " " + currentTime,
             email: userEmail,
             message: entryMessage,
-            currentGeolocation: "Latitude: " + position.coords.latitude +
-                ", Longitude: " + position.coords.longitude
+            currentGeolocation: "Latitude: " + userLatitude +
+                ", Longitude: " + userLongitude
         });
         emptyInputFields();
     });
@@ -204,7 +206,9 @@ $(document).ready(function () {
     //------------------------------------------------
     function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
+            navigator.geolocation.getCurrentPosition(position);
+            userLatitude = position.coords.latitude;
+            userLongitude = position.coords.longitude;
         } else {
             geolocationStatusField.text("Geolocation is not supported by this browser");
         }
@@ -228,12 +232,12 @@ $(document).ready(function () {
     }
 
     function showPosition(position) {
-        var latlon = position.coords.latitude + "," + position.coords.longitude;
-        var img_url = encodeURI("https://maps.googleapis.com/maps/api/staticmap?center=" + latlon + "&zoom=14&size=400x300&sensor=false&key=AIzaSyBfFgBNA3J_iDvP2h90bVBo6REBBhuq4lQ");
+        let latitudeLongitude = userLatitude + "," + userLongitude;
+        let mapURL = encodeURI("https://maps.googleapis.com/maps/api/staticmap?center=" + latitudeLongitude + "&zoom=14&size=400x300&sensor=false&key=AIzaSyBfFgBNA3J_iDvP2h90bVBo6REBBhuq4lQ");
 
-        mapDisplayField.html("<img src='" + img_url + "'>");
-        geolocationStatusField.html("Latitude: " + position.coords.latitude +
-            ", Longitude: " + position.coords.longitude);
+        mapDisplayField.html("<img src='" + mapURL + "'>");
+        geolocationStatusField.html("Latitude: " + userLatitude +
+            ", Longitude: " + userLongitude);
     }
 
     //------------------------------------------------
