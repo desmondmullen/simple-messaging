@@ -11,14 +11,6 @@ $(document).ready(function () {
     firebase.initializeApp(config);
 
     var database = firebase.database();
-    var actionCodeSettings = {
-        // URL you want to redirect back to. The domain (www.example.com) for this URL
-        // must be whitelisted in the Firebase Console.
-        'url': 'https://desmondmullen.com/simple-messaging/' + userInstancesPath, // Here we redirect back to this same page.
-        // 'url': window.location.href, // Here we redirect back to this same page.
-        'handleCodeInApp': true // This must be true.
-    };
-
     var userID;
     var userSignedIn;
     var userName;
@@ -196,6 +188,13 @@ $(document).ready(function () {
     });
 
     function sendEmailLink(theEmailAddress) {
+        let actionCodeSettings = {
+            // URL you want to redirect back to. The domain (www.example.com) for this URL
+            // must be whitelisted in the Firebase Console.
+            'url': 'https://desmondmullen.com/simple-messaging/' + userInstancesPath, // Here we redirect back to this same page.
+            // 'url': window.location.href, // Here we redirect back to this same page.
+            'handleCodeInApp': true // This must be true.
+        };
         firebase.auth().sendSignInLinkToEmail(theEmailAddress, actionCodeSettings).then(function () {
             // Save the email locally so you don’t need to ask the user for it again if they open the link on the same device.
             window.localStorage.setItem('emailForSignIn', theEmailAddress);
@@ -292,5 +291,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.7");
+    console.log("v1.71");
 });
