@@ -23,7 +23,7 @@ p {
     right: 5px;
 }
 
-#input-message {
+#input-message, #input-test {
     display: block;
     text-align: left;
     width: 90%;

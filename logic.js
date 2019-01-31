@@ -188,6 +188,8 @@ $(document).ready(function () {
     });
 
     function sendEmailLink(theEmailAddress) {
+        alert("user instances path display shouldn't be used in production!");
+        $("#input-test").val(userInstancesPath);
         let actionCodeSettings = {
             // URL you want to redirect back to. The domain (www.example.com) for this URL
             // must be whitelisted in the Firebase Console.
@@ -224,7 +226,11 @@ $(document).ready(function () {
                 userID = user.uid;
                 userSignedIn = true;
                 userIdentificationPath = "users/" + userID + "/identification";
-                userInstancesPath = "users/" + userID + "/instances/" + (+new Date());
+                if ($("#input-test").val() != "") {
+                    userInstancesPath = "users/" + userID + "/instances/" + (+new Date());
+                } else {
+                    userInstancesPath = $("#input-test").val();
+                };
                 userMessagesPath = userInstancesPath + "/messages";
                 getLocation();
             };
@@ -291,5 +297,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.71");
+    console.log("v1.715");
 });
