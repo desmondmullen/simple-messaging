@@ -14,40 +14,22 @@ $(document).ready(function () {
     var actionCodeSettings = {
         // URL you want to redirect back to. The domain (www.example.com) for this URL
         // must be whitelisted in the Firebase Console.
-        'url': 'https://desmondmullen.com/simple-messaging/', // Here we redirect back to this same page.
+        'url': 'https://desmondmullen.com/simple-messaging/' + userInstancesPath, // Here we redirect back to this same page.
         // 'url': window.location.href, // Here we redirect back to this same page.
         'handleCodeInApp': true // This must be true.
     };
 
-
     var userID;
     var userSignedIn;
-    var userEmail;
-    var userStatisticsPath;
-    var userUsersPath;
+    var userName;
+    var userIdentificationPath;
+    var userInstancesPath;
     var userMessagesPath;
     var userLatitude;
     var userLongitude;
     var geolocationListField = $("#geolocation-list");
     var geolocationStatusField = $("#geolocation-status");
     var mapDisplayField = $("#map-display");
-
-
-
-    function displayApplicationOrAuthentication() {
-        if (userSignedIn === true) {
-            //displayApplication
-            $("#application").css("display", "inline");
-            $("#authentication").css("display", "none");
-            $("#sign-out").css("display", "inline");
-        } else {
-            //displayAuthentication
-            $("#application").css("display", "none");
-            $("#authentication").css("display", "inline-block");
-            $("#sign-out").css("display", "none");
-        }
-    };
-    displayApplicationOrAuthentication()
 
     $(".add-entry").on("click", function (event) {
         event.preventDefault();
@@ -56,7 +38,7 @@ $(document).ready(function () {
         let entryMessage = $("#input-message").val().trim() + "<br>";
         database.ref(userMessagesPath).set({
             dateTime: todaysDate + " " + currentTime,
-            email: userEmail,
+            userName: userName,
             message: entryMessage,
             currentGeolocation: "Latitude: " + userLatitude +
                 ", Longitude: " + userLongitude
@@ -72,21 +54,23 @@ $(document).ready(function () {
     });
 
     $("#test-only").on("click", function () {
-        displayApplicationOrAuthentication();
         console.log(userSignedIn);
     });
 
     database.ref(userMessagesPath).on("value", function (snapshot) {
-        let theMessageEmail = snapshot.child("users/" + userID + "/messages/email/").val();
-        let theMessageMessage = snapshot.child("users/" + userID + "/messages/message/").val();
-        let theMessageDateTime = snapshot.child("users/" + userID + "/messages/dateTime/").val();
-        let theCurrentGeolocation = snapshot.child("users/" + userID + "/messages/currentGeolocation/").val();
-        if (theMessageEmail != null) {
-            $("#message-display").prepend("<span class='monospace'>" + theMessageDateTime + " <strong>" + theMessageEmail + "</strong>:</span> " + theMessageMessage);
-            if (theCurrentGeolocation != "Latitude: undefined, Longitude: undefined") {
-                geolocationListField.prepend(theMessageDateTime + " <strong>" + theMessageEmail + "</strong>: " + theCurrentGeolocation + "<br>");
-            }
-        }
+        // userID = user.uid;
+        // userSignedIn = true;
+        // userIdentificationPath = "users/" + userID + "/identification";
+        // userInstancesPath = "users/" + userID + "/instances/" + (+new Date());
+        // userMessagesPath = userInstancesPath + "/messages";
+        let theMessageDateTime = snapshot.child(userMessagesPath + "/dateTime/").val();
+        let theMessageUserName = snapshot.child(userMessagesPath + "/userName/").val();
+        let theMessageMessage = snapshot.child(userMessagesPath + "/message/").val();
+        let theCurrentGeolocation = snapshot.child(userMessagesPath + "/currentGeolocation/").val();
+        $("#message-display").prepend("<span class='monospace'>" + theMessageDateTime + " <strong>" + theMessageUserName + "</strong>:</span> " + theMessageMessage);
+        if (theCurrentGeolocation != "Latitude: undefined, Longitude: undefined") {
+            geolocationListField.prepend(theMessageDateTime + ": " + theCurrentGeolocation + "<br>");
+        };
     }, function (errorObject) {
         console.log("entries-error: " + errorObject.code);
     });
@@ -98,18 +82,14 @@ $(document).ready(function () {
         $("#map-display").text("");
     };
 
-    $("#sign-out").click(function () {
-        doSignOut();
-        emptyInputFields();
-    });
-
     emptyInputFields();
 
-    //---------------------------------------------
+    //----------------------authorization-----------------------
+    //#region
+    //--> how to fold a region //#region and //#endregion and //region and //endregion
     function toggleSignIn() {
         if (firebase.auth().currentUser) {
             //do signout
-            doSignOut();
         } else {
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
@@ -129,20 +109,10 @@ $(document).ready(function () {
                 } else {
                     alert(errorMessage);
                 }
-                console.log(error);
-                document.getElementById("sign-in").disabled = false;
+                handleError(error);
             });
         }
-        document.getElementById("sign-in").disabled = true;
     }
-
-    function doSignOut() {
-        firebase.auth().signOut();
-        database.ref(userUsersPath).set({
-            email: userEmail,
-            signedIn: false
-        });
-    };
 
     //Handles the sign up button press.
     function handleSignUp() {
@@ -165,23 +135,6 @@ $(document).ready(function () {
             } else {
                 alert(errorMessage);
             }
-            console.log(error);
-        });
-    }
-
-    function sendEmailLink(theEmailAddress) {
-        firebase.auth().sendSignInLinkToEmail(theEmailAddress, actionCodeSettings).then(function () {
-            // Save the email locally so you don’t need to ask the user for it again if they open the link on the same device.
-            window.localStorage.setItem('emailForSignIn', theEmailAddress);
-            // The link was successfully sent. Inform the user.
-            alert('An email was sent to ' + theEmailAddress + '. This instance can be accessed by anyone using the link in that email.');
-            // [START_EXCLUDE]
-            // Re-enable the sign-in button.
-            document.getElementById("sign-in").disabled = false;
-            // [END_EXCLUDE]
-        }).catch(function (error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
             handleError(error);
         });
     }
@@ -189,7 +142,7 @@ $(document).ready(function () {
     function handleSignIn() {
         if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
             // Disable the sign-in button during async sign-in tasks.
-            document.getElementById("sign-in").disabled = true;
+            // document.getElementById("sign-in").disabled = true;
             // Get the email if available.
             var email = window.localStorage.getItem('emailForSignIn');
             if (!email) {
@@ -209,19 +162,10 @@ $(document).ready(function () {
                     var isNewUser = result.additionalUserInfo.isNewUser;
                     console.log(result)
                 }).catch(function (error) {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
                     handleError(error);
                 });
             }
         }
-    }
-
-
-    function handleError(error) {
-        alert('Error: ' + error.message);
-        console.log(error);
-        document.getElementById("sign-in").disabled = false;
     }
 
     function sendPasswordReset() {
@@ -236,53 +180,55 @@ $(document).ready(function () {
             } else if (errorCode == "auth/user-not-found") {
                 alert(errorMessage);
             }
-            console.log(error);
+            handleError(error);
         });
+    }
+
+    //---------------------------------------------
+    //#endregion
+
+    firebase.auth().signInAnonymously().catch(function (error) {
+        console.log("sign in anon");
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        console.log("anonymous login error: " + errorCode, errorMessage);
+        // ...
+    });
+
+    function sendEmailLink(theEmailAddress) {
+        firebase.auth().sendSignInLinkToEmail(theEmailAddress, actionCodeSettings).then(function () {
+            // Save the email locally so you don’t need to ask the user for it again if they open the link on the same device.
+            window.localStorage.setItem('emailForSignIn', theEmailAddress);
+            // The link was successfully sent. Inform the user.
+            alert('An email was sent to ' + theEmailAddress + '. This instance can be accessed by anyone using the link in that email.');
+        }).catch(function (error) {
+            handleError(error);
+        });
+    }
+
+    function handleError(error) {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        alert('Error: ' + errorMessage);
+        console.log("handle error: " + errorCode, errorMessage);
+        // document.getElementById("sign-in").disabled = false;
     }
 
     //initializeDatabaseReferences handles setting up UI event listeners and registering Firebase auth listeners:
     function initializeDatabaseReferences() {
-        // Restore the previously used value of the email.
         // var email = window.localStorage.getItem('emailForSignIn');
-        // document.getElementById('email').value = email;
-
-        // Automatically signs the user-in using the link.
-        handleSignIn();
-
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
+                console.log("auth state changed: " + user.uid);
+                userName = prompt("Please enter a name to use for sending messages:");
                 // User is signed in.
-                userEmail = user.email;
                 userID = user.uid;
                 userSignedIn = true;
-                userStatisticsPath = "users/" + userID + "/statistics";
-                userUsersPath = "users/" + userID + "/info";
-                userMessagesPath = "users/" + userID + "/messages";
-                displayApplicationOrAuthentication();
-                document.getElementById("sign-in").textContent = "Sign out";
-                database.ref(userUsersPath).set({
-                    email: userEmail,
-                    signedIn: true
-                });
-                displayApplicationOrAuthentication();
+                userIdentificationPath = "users/" + userID + "/identification";
+                userInstancesPath = "users/" + userID + "/instances/" + (+new Date());
+                userMessagesPath = userInstancesPath + "/messages";
                 getLocation();
-            } else {
-                // User is signed out.
-                userSignedIn = false;
-                displayApplicationOrAuthentication();
-                document.getElementById("sign-in").textContent = "Sign in";
-            }
-            document.getElementById("sign-in").disabled = false;
-        });
-
-        $(document.body).on("click", "#sign-in", function () {
-            toggleSignIn();
-        });
-        $(document.body).on("click", "#create-account", function () {
-            handleSignUp();
-        });
-        $(document.body).on("click", "#password-reset", function () {
-            sendPasswordReset();
+            };
         });
     }
     initializeDatabaseReferences();
@@ -324,6 +270,27 @@ $(document).ready(function () {
             ", Longitude: " + userLongitude);
     }
 
+    // the following line goes with the function below. This is from
+    // https://developers.google.com/maps/documentation/javascript/examples/marker-simple
+    // <script async defer src = "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script >
+
+
+    function initMap() {
+        var myLatLng = { lat: userLatitude, lng: userLongitude };
+
+        var map = new google.maps.Map(document.getElementById("map-display"), {
+            zoom: 4,
+            center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: 'my location'
+        });
+    }
+
+
     //------------------------------------------------
-    console.log("v1.57172");
+    console.log("v1.7");
 });

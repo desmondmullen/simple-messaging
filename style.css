@@ -23,23 +23,6 @@ p {
     right: 5px;
 }
 
-#authentication {
-    text-align: center;
-    width: 100%;
-}
-
-#authentication p {
-    font-style: italic;
-}
-
-.login-background h3 {
-    padding-top: 10px;
-}
-
-.login-background {
-    background-color: palevioletred;
-}
-
 #input-message {
     display: block;
     text-align: left;
@@ -53,18 +36,8 @@ p {
     text-align: center;
 }
 
-.login-input {
-    display: inline;
-    text-align: left;
-    margin: 0 5px 0 5px;
-}
-
-#login-form {
-    display: inline;
-}
-
 #application {
-    display: none;
+    display: inline;
 }
 
 .input-form {
@@ -164,13 +137,6 @@ hr {
     }
     button {
         padding: 5px;
-    }
-    #signout-button {
-        float: none;
-        text-align: center;
-        /* height: 30px; */
-        margin: 0;
-        padding: 0;
     }
     label {
         margin: 5px 0px 0px 0px;
