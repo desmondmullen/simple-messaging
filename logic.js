@@ -48,7 +48,8 @@ $(document).ready(function () {
     $("#goto-instance").on("click", function () {
         console.log("path before: " + userInstancesPath);
         console.log("path before: " + userMessagesPath);
-        userInstancesPath = $("#input-test").val();
+        userInstancesPath = prompt("Please enter the instance address:");
+        // userInstancesPath = $("#input-test").val();
         userMessagesPath = userInstancesPath + "/messages";
         console.log("path after: " + userInstancesPath);
         console.log("path after: " + userMessagesPath);
@@ -59,26 +60,18 @@ $(document).ready(function () {
     });
 
     $("#test-only").on("click", function () {
-        // console.log("setting userInstancesPath");
         console.log("path before: " + userInstancesPath);
         console.log("path before: " + userMessagesPath);
-        // userInstancesPath = $("#input-test").val();
-        // userMessagesPath = userInstancesPath + "/messages";
-        // console.log("path after: " + userInstancesPath);
-        // console.log("path after: " + userMessagesPath);
     });
 
     database.ref(userMessagesPath).on("value", function (snapshot) {
-        // userID = user.uid;
-        // userSignedIn = true;
-        // userIdentificationPath = "users/" + userID + "/identification";
-        // userInstancesPath = "users/" + userID + "/instances/" + (+new Date());
-        // userMessagesPath = userInstancesPath + "/messages";
         let theMessageDateTime = snapshot.child(userMessagesPath + "/dateTime/").val();
         let theMessageUserName = snapshot.child(userMessagesPath + "/userName/").val();
         let theMessageMessage = snapshot.child(userMessagesPath + "/message/").val();
         let theCurrentGeolocation = snapshot.child(userMessagesPath + "/currentGeolocation/").val();
-        $("#message-display").prepend("<span class='monospace'>" + theMessageDateTime + " <strong>" + theMessageUserName + "</strong>:</span> " + theMessageMessage);
+        if (theMessageDateTime != null) {
+            $("#message-display").prepend("<span class='monospace'>" + theMessageDateTime + " <strong>" + theMessageUserName + "</strong>:</span> " + theMessageMessage);
+        };
         if (theCurrentGeolocation != "Latitude: undefined, Longitude: undefined") {
             geolocationListField.prepend(theMessageDateTime + ": " + theCurrentGeolocation + "<br>");
         };
@@ -230,7 +223,6 @@ $(document).ready(function () {
 
     function sendEmailLink(theEmailAddress) {
         alert("user instances path display shouldn't be used in production!");
-        console.log("path: " + userInstancesPath);
         $("#input-test").val(userInstancesPath);
         let actionCodeSettings = {
             // URL you want to redirect back to. The domain (www.example.com) for this URL
@@ -340,5 +332,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.73");
+    console.log("v1.75");
 });
