@@ -57,6 +57,7 @@ $(document).ready(function () {
 
     $("#sign-out").on("click", function () {
         signOut();
+        emptyInputFields();
     });
 
     $("#test-only").on("click", function () {
@@ -84,6 +85,14 @@ $(document).ready(function () {
         $("#message-display").text("");
         $("#geolocation-list").text("");
         $("#map-display").text("");
+        userID = "";
+        userSignedIn = "";
+        userName = "";
+        userIdentificationPath = "";
+        userInstancesPath = "";
+        userMessagesPath = "";
+        userLatitude = "";
+        userLongitude = "";
     };
 
     emptyInputFields();
@@ -332,5 +341,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.75");
+    console.log("v1.751");
 });
