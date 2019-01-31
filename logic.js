@@ -274,11 +274,11 @@ $(document).ready(function () {
                 userID = user.uid;
                 userSignedIn = true;
                 userIdentificationPath = "users/" + userID + "/identification";
-                if ($("#input-test").val() == "") {
-                    userInstancesPath = "users/" + userID + "/instances/" + (+new Date());
-                } else {
-                    userInstancesPath = $("#input-test").val();
-                };
+                // if ($("#input-test").val() == "") {
+                userInstancesPath = "users/" + userID + "/instances/" + (+new Date());
+                // } else {
+                //     userInstancesPath = $("#input-test").val();
+                // };
                 userMessagesPath = userInstancesPath + "/messages";
                 getLocation();
             };
@@ -345,5 +345,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.752");
+    console.log("v1.753");
 });
