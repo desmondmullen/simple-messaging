@@ -45,6 +45,10 @@ $(document).ready(function () {
         }
     });
 
+    $("#sign-out").on("click", function () {
+        signOut();
+    });
+
     $("#test-only").on("click", function () {
         console.log("path: " + userInstancesPath);
     });
@@ -187,6 +191,10 @@ $(document).ready(function () {
         // ...
     });
 
+    function signOut() {
+        firebase.auth().signOut();
+    };
+
     function sendEmailLink(theEmailAddress) {
         alert("user instances path display shouldn't be used in production!");
         console.log("path: " + userInstancesPath);
@@ -298,5 +306,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.717");
+    console.log("v1.718");
 });
