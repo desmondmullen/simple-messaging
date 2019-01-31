@@ -50,7 +50,10 @@ $(document).ready(function () {
     });
 
     $("#test-only").on("click", function () {
-        console.log("path: " + userInstancesPath);
+        console.log("setting userInstancesPath");
+        console.log("path before: " + userInstancesPath);
+        userInstancesPath = $("#input-test").val();
+        console.log("path after: " + userInstancesPath);
     });
 
     database.ref(userMessagesPath).on("value", function (snapshot) {
@@ -183,6 +186,23 @@ $(document).ready(function () {
     //---------------------------------------------
     //#endregion
 
+    //----------------------
+    var connectionsRef = database.ref("/connections");
+    var connectedRef = database.ref(".info/connected");
+
+    connectedRef.on("value", function (connectedSnapshot) {
+        if (connectedSnapshot.val()) {
+            var theConnection = connectionsRef.push(true);
+            theConnection.onDisconnect().remove();
+            console.log("number online 1: " + connectedSnapshot.numChildren());
+        };
+    });
+    connectionsRef.on("value", function (connectionsSnapshot) {
+        console.log("number online 2: " + connectionsSnapshot.numChildren());
+    });
+    // Number of online users is the number of objects in the presence list.
+    //----------------------
+
     firebase.auth().signInAnonymously().catch(function (error) {
         console.log("sign in anon");
         let errorCode = error.code;
@@ -193,6 +213,7 @@ $(document).ready(function () {
 
     function signOut() {
         firebase.auth().signOut();
+        userSignedIn = false;
     };
 
     function sendEmailLink(theEmailAddress) {
@@ -202,7 +223,8 @@ $(document).ready(function () {
         let actionCodeSettings = {
             // URL you want to redirect back to. The domain (www.example.com) for this URL
             // must be whitelisted in the Firebase Console.
-            'url': 'https://desmondmullen.com/simple-messaging/' + userInstancesPath, // Here we redirect back to this same page.
+            // 'url': 'https://desmondmullen.com/simple-messaging/' + userInstancesPath, // Here we redirect back to this same page.
+            'url': "https://desmondmullen.com/simple-messaging/", // Here we redirect back to this same page.
             // 'url': window.location.href, // Here we redirect back to this same page.
             'handleCodeInApp': true // This must be true.
         };
@@ -306,5 +328,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.718");
+    console.log("v1.719");
 });
