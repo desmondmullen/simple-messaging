@@ -52,8 +52,11 @@ $(document).ready(function () {
     $("#test-only").on("click", function () {
         console.log("setting userInstancesPath");
         console.log("path before: " + userInstancesPath);
+        console.log("path before: " + userMessagesPath);
         userInstancesPath = $("#input-test").val();
+        userMessagesPath = userInstancesPath + "/messages";
         console.log("path after: " + userInstancesPath);
+        console.log("path after: " + userMessagesPath);
     });
 
     database.ref(userMessagesPath).on("value", function (snapshot) {
@@ -328,5 +331,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.719");
+    console.log("v1.72");
 });
