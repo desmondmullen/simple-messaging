@@ -45,18 +45,27 @@ $(document).ready(function () {
         }
     });
 
-    $("#sign-out").on("click", function () {
-        signOut();
-    });
-
-    $("#test-only").on("click", function () {
-        console.log("setting userInstancesPath");
+    $("#goto-instance").on("click", function () {
         console.log("path before: " + userInstancesPath);
         console.log("path before: " + userMessagesPath);
         userInstancesPath = $("#input-test").val();
         userMessagesPath = userInstancesPath + "/messages";
         console.log("path after: " + userInstancesPath);
         console.log("path after: " + userMessagesPath);
+    });
+
+    $("#sign-out").on("click", function () {
+        signOut();
+    });
+
+    $("#test-only").on("click", function () {
+        // console.log("setting userInstancesPath");
+        console.log("path before: " + userInstancesPath);
+        console.log("path before: " + userMessagesPath);
+        // userInstancesPath = $("#input-test").val();
+        // userMessagesPath = userInstancesPath + "/messages";
+        // console.log("path after: " + userInstancesPath);
+        // console.log("path after: " + userMessagesPath);
     });
 
     database.ref(userMessagesPath).on("value", function (snapshot) {
@@ -227,7 +236,7 @@ $(document).ready(function () {
             // URL you want to redirect back to. The domain (www.example.com) for this URL
             // must be whitelisted in the Firebase Console.
             // 'url': 'https://desmondmullen.com/simple-messaging/' + userInstancesPath, // Here we redirect back to this same page.
-            'url': "https://desmondmullen.com/simple-messaging/", // Here we redirect back to this same page.
+            'url': "https://desmondmullen.com/simple-messaging/?" + userInstancesPath, // Here we redirect back to this same page.
             // 'url': window.location.href, // Here we redirect back to this same page.
             'handleCodeInApp': true // This must be true.
         };
@@ -331,5 +340,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.72");
+    console.log("v1.73");
 });
