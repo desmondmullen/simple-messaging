@@ -39,6 +39,7 @@ $(document).ready(function () {
     });
 
     $("#send-link").on("click", function () {
+        console.log("user instances path: " + userInstancesPath);
         let theEmailAddressToSendLinkTo = prompt("Please enter the email address to send the link to:");
         if (theEmailAddressToSendLinkTo != null) {
             sendEmailLink(theEmailAddressToSendLinkTo);
@@ -48,9 +49,12 @@ $(document).ready(function () {
     $("#goto-instance").on("click", function () {
         console.log("path before: " + userInstancesPath);
         console.log("path before: " + userMessagesPath);
-        userInstancesPath = prompt("Please enter the instance address:");
+        tempUserInstancesPath = prompt("Please enter the instance address:");
+        if (tempUserInstancesPath != null) {
+            userInstancesPath = tempUserInstancesPath
+            userMessagesPath = userInstancesPath + "/messages";
+        }
         // userInstancesPath = $("#input-test").val();
-        userMessagesPath = userInstancesPath + "/messages";
         console.log("path after: " + userInstancesPath);
         console.log("path after: " + userMessagesPath);
     });
@@ -341,5 +345,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.751");
+    console.log("v1.752");
 });
