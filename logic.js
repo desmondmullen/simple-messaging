@@ -46,7 +46,7 @@ $(document).ready(function () {
     });
 
     $("#test-only").on("click", function () {
-        console.log(userSignedIn);
+        console.log("path: " + userInstancesPath);
     });
 
     database.ref(userMessagesPath).on("value", function (snapshot) {
@@ -189,6 +189,7 @@ $(document).ready(function () {
 
     function sendEmailLink(theEmailAddress) {
         alert("user instances path display shouldn't be used in production!");
+        console.log("path: " + userInstancesPath);
         $("#input-test").val(userInstancesPath);
         let actionCodeSettings = {
             // URL you want to redirect back to. The domain (www.example.com) for this URL
@@ -226,7 +227,7 @@ $(document).ready(function () {
                 userID = user.uid;
                 userSignedIn = true;
                 userIdentificationPath = "users/" + userID + "/identification";
-                if ($("#input-test").val() != "") {
+                if ($("#input-test").val() == "") {
                     userInstancesPath = "users/" + userID + "/instances/" + (+new Date());
                 } else {
                     userInstancesPath = $("#input-test").val();
@@ -297,5 +298,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.715");
+    console.log("v1.717");
 });
