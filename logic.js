@@ -64,17 +64,7 @@ $(document).ready(function () {
     });
 
     $("#test-only").on("click", function () {
-        console.log("path before: " + userInstancesPath);
-        // console.log("path before: " + userMessagesPath);
-        // console.log(window.location.href);
-        // let theLink = window.location.href;
-        // let theLink = "https://desmondmullen.com/simple-messaging/?users%2F0RwNml3nWsfvH1glmUP0uLeCkef1%2Finstances%2F1548992693601&apiKey=AIzaSyC3DrasuTKwDHLaaqV_hdlVnnLDqdTY1gE&oobCode=WMTR1Ooanm7-sUwKeUsohVPw1Mla-AtkbmT6nPiqaC0AAAFop2jJWg&mode=signIn&lang=en";
-        // let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
-        // console.log(decodeURIComponent(theInstancesPath));
-        // setTimeout(function () {
-        //     console.log("path before: " + userInstancesPath);
-        // }, 3000);
-
+        console.log("path: " + userInstancesPath);
 
     });
 
@@ -278,7 +268,6 @@ $(document).ready(function () {
 
     //initializeDatabaseReferences handles setting up UI event listeners and registering Firebase auth listeners:
     function initializeDatabaseReferences() {
-        handleSignIn();
         // var email = window.localStorage.getItem('emailForSignIn');
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -293,6 +282,7 @@ $(document).ready(function () {
                 getLocation();
             };
         });
+        handleSignIn();
     }
     initializeDatabaseReferences();
 
@@ -355,5 +345,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.7571");
+    console.log("v1.7572");
 });
