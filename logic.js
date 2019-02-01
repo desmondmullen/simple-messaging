@@ -54,7 +54,6 @@ $(document).ready(function () {
             userInstancesPath = tempUserInstancesPath
             userMessagesPath = userInstancesPath + "/messages";
         }
-        // userInstancesPath = $("#input-test").val();
         console.log("path after: " + userInstancesPath);
         console.log("path after: " + userMessagesPath);
     });
@@ -67,6 +66,12 @@ $(document).ready(function () {
     $("#test-only").on("click", function () {
         console.log("path before: " + userInstancesPath);
         console.log("path before: " + userMessagesPath);
+        console.log(window.location.href);
+        let theLink = window.location.href;
+        // let theLink = "https://desmondmullen.com/simple-messaging/?users%2F0RwNml3nWsfvH1glmUP0uLeCkef1%2Finstances%2F1548992693601&apiKey=AIzaSyC3DrasuTKwDHLaaqV_hdlVnnLDqdTY1gE&oobCode=WMTR1Ooanm7-sUwKeUsohVPw1Mla-AtkbmT6nPiqaC0AAAFop2jJWg&mode=signIn&lang=en";
+        let theInstancePath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
+        console.log(decodeURIComponent(theInstancePath));
+
     });
 
     database.ref(userMessagesPath).on("value", function (snapshot) {
@@ -274,11 +279,7 @@ $(document).ready(function () {
                 userID = user.uid;
                 userSignedIn = true;
                 userIdentificationPath = "users/" + userID + "/identification";
-                // if ($("#input-test").val() == "") {
                 userInstancesPath = "users/" + userID + "/instances/" + (+new Date());
-                // } else {
-                //     userInstancesPath = $("#input-test").val();
-                // };
                 userMessagesPath = userInstancesPath + "/messages";
                 getLocation();
             };
@@ -345,5 +346,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.753");
+    console.log("v1.754");
 });
