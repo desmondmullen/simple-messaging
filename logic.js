@@ -48,7 +48,8 @@ $(document).ready(function () {
     function doAddEntry(automatic) {
         let todaysDate = new Date().toLocaleDateString("en-US");
         let currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        if (!automatic) {
+        console.log(automatic)
+        if (automatic != "connected" && automatic != "disconnected") {
             var entryMessage = $("#input-message").val().trim() + "<br>";
         } else {
             if (automatic == "connected") {
@@ -354,5 +355,5 @@ $(document).ready(function () {
     //#endregion
 
     //------------------------------------------------
-    console.log("v1.77");
+    console.log("v1.771");
 });
