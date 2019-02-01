@@ -281,7 +281,7 @@ $(document).ready(function () {
                 // User is signed in.
                 userID = user.uid;
                 userSignedIn = true;
-                if (theLink.indexOf("?") > 0) {
+                if (window.location.href.indexOf("?") > 0) {
                     turnURLIntoUserInstancesPath();
                 } else {
                     userIdentificationPath = "users/" + userID + "/identification";
@@ -354,5 +354,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.7577");
+    console.log("v1.7579");
 });
