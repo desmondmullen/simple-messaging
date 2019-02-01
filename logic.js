@@ -77,7 +77,7 @@ $(document).ready(function () {
             $("#message-display").prepend("<span class='monospace'>" + theMessageDateTime + " <strong>" + theMessageUserName + "</strong>:</span> " + theMessageMessage);
         };
         if (theCurrentGeolocation != "Latitude: undefined, Longitude: undefined") {
-            geolocationListField.prepend(theMessageDateTime + ": " + theCurrentGeolocation + "<br>");
+            geolocationListField.prepend(theMessageDateTime + " <strong>" + theMessageUserName + "</strong>: " + theCurrentGeolocation + "<br>");
         };
     }, function (errorObject) {
         console.log("entries-error: " + errorObject.code);
@@ -355,5 +355,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.758");
+    console.log("v1.7581");
 });
