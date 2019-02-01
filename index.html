@@ -70,7 +70,7 @@
 
         function initMap() {
             setTimeout(function () {
-                console.log("init map: " + userLatitude, userLongitude);
+                // console.log("init map: " + userLatitude, userLongitude);
                 initMapLatLong = userLatitude, userLongitude;
                 var userLatLong = { lat: userLatitude, lng: userLongitude };
                 var map = new google.maps.Map(document.getElementById('map'), {
@@ -88,9 +88,9 @@
                     map: map,
                     title: 'She is here'
                 });
-            }, 500);
+            }, 3000);
         }
-        console.log("map in index v1.1");
+        console.log("map in index v1.11");
     </script>
 </body>
 
