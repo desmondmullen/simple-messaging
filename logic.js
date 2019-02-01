@@ -27,6 +27,7 @@ $(document).ready(function () {
     var geolocationStatusField = $("#geolocation-status");
     var mapDisplayField = $("#map-display");
     var initMapLatLong;
+    var marker;
 
 
     $(".add-entry").on("click", function (event) {
@@ -105,8 +106,9 @@ $(document).ready(function () {
         userIdentificationPath = "";
         userInstancesPath = "";
         userMessagesPath = "";
-        userLatitude = "";
-        userLongitude = "";
+        userLatitude;
+        userLongitude;
+        userLatLong;
     };
 
     //#region - authorization
@@ -377,8 +379,8 @@ $(document).ready(function () {
     getLocation();
 
     function showPosition(position) {
-        userLatitude = parseFloat(position.coords.latitude);
-        userLongitude = parseFloat(position.coords.longitude);
+        userLatitude = position.coords.latitude;
+        userLongitude = position.coords.longitude;
         if (initMapLatLong != userLatitude, userLongitude) {
             console.log("redoing initMap: " + initMapLatLong + " / " + userLatitude, userLongitude);
             initMap();
@@ -400,7 +402,7 @@ $(document).ready(function () {
         setTimeout(function () {
             console.log("init map: " + userLatitude, userLongitude);
             initMapLatLong = userLatitude, userLongitude;
-            let userLatLong = { lat: userLatitude, lng: userLongitude };
+            userLatLong = { lat: userLatitude, lng: userLongitude };
             let theZoom = 16;
             let theKey = "AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc";
             // let mapURL = encodeURI("https://maps.googleapis.com/maps/api/js?center=" + userLatLong + "&zoom=" + theZoom + "&size=400x300&sensor=false&key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc&callback=initMap");
@@ -410,13 +412,13 @@ $(document).ready(function () {
                 center: userLatLong,
                 key: theKey
             });
-            var marker = new google.maps.Marker({
+            marker = new google.maps.Marker({
                 position: userLatLong,
                 map: map,
                 title: 'You are here'
             });
-            var userLatLong = { lat: userLatitude + .001, lng: userLongitude + .001 };
-            var marker = new google.maps.Marker({
+            userLatLong = { lat: userLatitude + .001, lng: userLongitude + .001 };
+            marker = new google.maps.Marker({
                 position: userLatLong,
                 map: map,
                 title: 'She is here'
@@ -426,8 +428,8 @@ $(document).ready(function () {
     }
 
     function placeMarker(latitude, longitude, title) {
-        var userLatLong = { lat: userLatitude, lng: userLongitude };
-        var marker = new google.maps.Marker({
+        userLatLong = { lat: userLatitude, lng: userLongitude };
+        marker = new google.maps.Marker({
             position: userLatLong,
             map: map,
             title: 'You are here'
@@ -435,5 +437,5 @@ $(document).ready(function () {
 
     };
 
-    console.log("v1.8");
+    console.log("v1.81");
 });
