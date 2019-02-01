@@ -415,7 +415,19 @@ $(document).ready(function () {
                 map: map,
                 title: 'She is here'
             });
+            placeMarker(userLatitude - .001, userLongitude - .001, "new marker")
         }, 500);
     }
-    console.log("v1.781");
+
+    function placeMarker(latitude, longitude, title) {
+        var userLatLong = { lat: userLatitude, lng: userLongitude };
+        var marker = new google.maps.Marker({
+            position: userLatLong,
+            map: map,
+            title: 'You are here'
+        });
+
+    };
+
+    console.log("v1.782");
 });
