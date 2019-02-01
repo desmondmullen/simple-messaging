@@ -29,7 +29,7 @@ $(document).ready(function () {
 
     $(".add-entry").on("click", function (event) {
         event.preventDefault();
-        doAddEntry(event);
+        doAddEntry();
     });
 
     $("#send-link").on("click", function () {
@@ -359,5 +359,5 @@ $(document).ready(function () {
     //#endregion
 
     //------------------------------------------------
-    console.log("v1.772");
+    console.log("v1.773");
 });
