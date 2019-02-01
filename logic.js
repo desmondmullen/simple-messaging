@@ -192,7 +192,7 @@ $(document).ready(function () {
     function turnURLIntoUserInstancesPath() {
         let theLink = window.location.href;
         let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
-        userInstancesPath = theInstancesPath;
+        userInstancesPath = decodeURIComponent(theInstancesPath);
         userMessagesPath = userInstancesPath + "/messages";
         console.log("new path: " + decodeURIComponent(theInstancesPath));
     }
@@ -355,5 +355,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.7581");
+    console.log("v1.7582");
 });
