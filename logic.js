@@ -384,6 +384,10 @@ $(document).ready(function () {
             initMap();
         } else {
             console.log("show position: " + userLatitude, userLongitude);
+            let userLatLong = { lat: userLatitude, lng: userLongitude };
+            let theZoom = 16;
+            let mapURL = encodeURI("https://maps.googleapis.com/maps/api/js?center=" + userLatLong + "&zoom=" + theZoom + "&size=400x300&sensor=false&key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc&callback=initMap");
+            mapDisplayField.html("<img src='" + mapURL + "'>");
         }
     }
 
@@ -396,14 +400,16 @@ $(document).ready(function () {
         setTimeout(function () {
             console.log("init map: " + userLatitude, userLongitude);
             initMapLatLong = userLatitude, userLongitude;
-            var userLatLong = { lat: userLatitude, lng: userLongitude };
+            let userLatLong = { lat: userLatitude, lng: userLongitude };
             let theZoom = 16;
-            let mapURL = encodeURI("https://maps.googleapis.com/maps/api/js?center=" + userLatLong + "&zoom=" + theZoom + "&size=400x300&sensor=false&key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc&callback=initMap");
-            mapDisplayField.html("<img src='" + mapURL + "'>");
-            // var map = new google.maps.Map(mapDisplayField, {
-            //     zoom: 16,
-            //     center: userLatLong
-            // });
+            let theKey = "AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc";
+            // let mapURL = encodeURI("https://maps.googleapis.com/maps/api/js?center=" + userLatLong + "&zoom=" + theZoom + "&size=400x300&sensor=false&key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc&callback=initMap");
+            // mapDisplayField.html("<img src='" + mapURL + "'>");
+            var map = new google.maps.Map(mapDisplayField, {
+                zoom: theZoom,
+                center: userLatLong,
+                key: theKey
+            });
             var marker = new google.maps.Marker({
                 position: userLatLong,
                 map: map,
@@ -429,5 +435,5 @@ $(document).ready(function () {
 
     };
 
-    console.log("v1.783");
+    console.log("v1.8");
 });
