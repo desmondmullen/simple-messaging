@@ -284,7 +284,6 @@ $(document).ready(function () {
                     userName = shortUserID;
                 };
                 // User is signed in.
-                console.log(userName);
                 userSignedIn = true;
                 userIdentificationPath = "users/" + userID + "/identification";
                 if (window.location.href.indexOf("?") > 0) {
