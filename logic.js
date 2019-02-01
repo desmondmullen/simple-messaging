@@ -238,9 +238,9 @@ $(document).ready(function () {
     };
 
     function signOut() {
+        doAddEntry("disconnected");
         firebase.auth().signOut();
         userSignedIn = false;
-        doAddEntry("disconnected");
         window.localStorage.removeItem("userInstancesPath");
         emptyInputFields();
         window.history.replaceState({}, document.title, window.location.href.split('?')[0]);//cleans up sign-in link params
@@ -368,5 +368,5 @@ $(document).ready(function () {
     //#endregion
 
     //------------------------------------------------
-    console.log("v1.777");
+    console.log("v1.7771");
 });
