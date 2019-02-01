@@ -272,7 +272,7 @@ $(document).ready(function () {
                 console.log("auth state changed: " + user.uid);
                 userID = user.uid; //when connecting by link, this will be the same user
                 let shortUserID = Math.floor(Math.random() * 1000 + 1000);
-                userName = prompt("Please enter a name to use for sending messages. If you don't choose one, we'll call you by your user ID", shortUserID);
+                userName = prompt("Please enter a name to use for sending messages. If you don't choose one, we'll call you by this random number:", shortUserID);
                 if (userName == null || userName.trim() == "") {
                     userName = shortUserID;
                 };
