@@ -17,7 +17,7 @@
 
 <body>
     <header>
-        <h3>Simple Messaging <small>v1.84</small></h3>
+        <h3>Simple Messaging</h3>
     </header>
     <div id="application">
         <div id="signout-button"><button id="send-link">Send Link</button>
@@ -45,6 +45,7 @@
         var userLatitude;
         var userLongitude;
         var initMapLatLong;
+        var mapDisplayField = $("#map-display");
 
         function getLocation() {
             if (navigator.geolocation) {
@@ -89,7 +90,7 @@
                 });
             }, 500);
         }
-        console.log("map v1");
+        console.log("map in index v1.1");
     </script>
 </body>
 

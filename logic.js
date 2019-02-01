@@ -20,13 +20,9 @@ $(document).ready(function () {
     var userIdentificationPath;
     var userInstancesPath;
     var userMessagesPath;
-    var userLatitude;
-    var userLongitude;
     var theLastMessageDateTime;
     var geolocationListField = $("#geolocation-list");
     var geolocationStatusField = $("#geolocation-status");
-    var mapDisplayField = $("#map-display");
-    var initMapLatLong;
     var marker;
 
 
@@ -368,5 +364,5 @@ $(document).ready(function () {
     // }
     //#endregion
 
-    console.log("v1.84");
+    console.log("v1.85");
 });
