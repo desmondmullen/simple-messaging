@@ -49,27 +49,27 @@ $(document).ready(function () {
         }
     });
 
-    // $("#goto-instance").on("click", function () {
-    //     console.log("path before: " + userInstancesPath);
-    //     console.log("path before: " + userMessagesPath);
-    //     tempUserInstancesPath = prompt("Please enter the instance address:");
-    //     if (tempUserInstancesPath != null) {
-    //         userInstancesPath = tempUserInstancesPath
-    //         userMessagesPath = userInstancesPath + "/messages";
-    //     }
-    //     console.log("path after: " + userInstancesPath);
-    //     console.log("path after: " + userMessagesPath);
-    // });
+    $("#goto-instance").on("click", function () {
+        console.log("path before: " + userInstancesPath);
+        console.log("path before: " + userMessagesPath);
+        tempUserInstancesPath = prompt("Please enter the instance address:");
+        if (tempUserInstancesPath != null) {
+            userInstancesPath = tempUserInstancesPath
+            userMessagesPath = userInstancesPath + "/messages";
+        }
+        console.log("path after: " + userInstancesPath);
+        console.log("path after: " + userMessagesPath);
+    });
 
     $("#sign-out").on("click", function () {
         signOut();
         emptyInputFields();
     });
 
-    // $("#test-only").on("click", function () {
-    //     console.log("path: " + userInstancesPath);
+    $("#test-only").on("click", function () {
+        console.log("path: " + userInstancesPath);
 
-    // });
+    });
 
     database.ref(userMessagesPath).on("value", function (snapshot) {
         let theMessageDateTime = snapshot.child(userMessagesPath + "/dateTime/").val();
@@ -99,12 +99,12 @@ $(document).ready(function () {
         userMessagesPath = "";
         userLatitude = "";
         userLongitude = "";
-        window.history.replaceState({}, document.title, window.location.href.split('?')[0]);//cleans up sign-in link params
     };
 
     emptyInputFields();
 
-    //#region - authorization
+    //----------------------authorization-----------------------
+    //#region
     //--> how to fold a region //#region and //#endregion and //region and //endregion
     function toggleSignIn() {
         if (firebase.auth().currentUser) {
@@ -175,11 +175,29 @@ $(document).ready(function () {
                 // if (email) {
                 firebase.auth().signInWithEmailLink(email, window.location.href).then(function (result) {
                     turnURLIntoUserInstancesPath();
+                    // Clear the URL to remove the sign-in link parameters.
+                    // if (history && history.replaceState) {
+                    //     console.log("history");
+                    //     window.history.replaceState({}, document.title, window.location.href.split('?')[0]);
+                    // }
+                    // Clear email from storage.
+                    // window.localStorage.removeItem('emailForSignIn');
+                    // var user = result.user;
+                    // var isNewUser = result.additionalUserInfo.isNewUser;
+                    // console.log(result)
                 }).catch(function (error) {
                     handleError(error);
                 });
             }
         }
+    }
+
+    function turnURLIntoUserInstancesPath() {
+        let theLink = window.location.href;
+        let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
+        userInstancesPath = decodeURIComponent(theInstancesPath);
+        userMessagesPath = userInstancesPath + "/messages";
+        console.log("new path: " + decodeURIComponent(theInstancesPath));
     }
 
     function sendPasswordReset() {
@@ -197,9 +215,11 @@ $(document).ready(function () {
             handleError(error);
         });
     }
+
+    //---------------------------------------------
     //#endregion
 
-    //#region - connections
+    //----------------------
     var connectionsRef = database.ref("/connections");
     var connectedRef = database.ref(".info/connected");
 
@@ -212,7 +232,9 @@ $(document).ready(function () {
     });
     connectionsRef.on("value", function (connectionsSnapshot) {
         console.log("number online 2: " + connectionsSnapshot.numChildren());
-    }); // Number of online users is the number of objects in the presence list.
+    });
+    // Number of online users is the number of objects in the presence list.
+    //----------------------
 
     firebase.auth().signInAnonymously().catch(function (error) {
         console.log("sign in anon");
@@ -222,20 +244,9 @@ $(document).ready(function () {
         // ...
     });
 
-    function turnURLIntoUserInstancesPath() {
-        let theLink = window.location.href;
-        window.history.replaceState({}, document.title, window.location.href.split('?')[0]);//cleans up sign-in link params
-        let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
-        userInstancesPath = decodeURIComponent(theInstancesPath);
-        userMessagesPath = userInstancesPath + "/messages";
-        console.log("new path: " + decodeURIComponent(theInstancesPath));
-    }
-
     function signOut() {
         firebase.auth().signOut();
         userSignedIn = false;
-        window.localStorage.removeItem("userInstancesPath");
-        emptyInputFields();
     };
 
     function sendEmailLink(theEmailAddress) {
@@ -246,7 +257,9 @@ $(document).ready(function () {
             'handleCodeInApp': true // This must be true.
         };
         firebase.auth().sendSignInLinkToEmail(theEmailAddress, actionCodeSettings).then(function () {
-            window.localStorage.setItem("userInstancesPath", userInstancesPath);
+            // Save the email locally so you don’t need to ask the user for it again if they open the link on the same device.
+            window.localStorage.setItem('emailForSignIn', theEmailAddress);
+            // The link was successfully sent. Inform the user.
             alert('An email was sent to ' + theEmailAddress + '. This instance can be accessed by anyone using the link in that email.');
         }).catch(function (error) {
             handleError(error);
@@ -260,11 +273,11 @@ $(document).ready(function () {
         console.log("handle error: " + errorCode, errorMessage);
         // document.getElementById("sign-in").disabled = false;
     }
-    //#endregion
 
+    //initializeDatabaseReferences handles setting up UI event listeners and registering Firebase auth listeners:
     function initializeDatabaseReferences() {
         console.log("initializing database");
-        let localStorageUIPath = window.localStorage.getItem("userInstancesPath");
+        // var email = window.localStorage.getItem('emailForSignIn');
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 console.log("auth state changed: " + user.uid);
@@ -272,25 +285,21 @@ $(document).ready(function () {
                 // User is signed in.
                 userID = user.uid;
                 userSignedIn = true;
-                userIdentificationPath = "users/" + userID + "/identification";
                 if (window.location.href.indexOf("?") > 0) {
                     turnURLIntoUserInstancesPath();
                 } else {
-                    if (localStorageUIPath == null) {
-                        userInstancesPath = localStorageUIPath;
-                    } else {
-                        userInstancesPath = "users/" + userID + "/instances/" + (+new Date());
-                    }
+                    userIdentificationPath = "users/" + userID + "/identification";
+                    userInstancesPath = "users/" + userID + "/instances/" + (+new Date());
                     userMessagesPath = userInstancesPath + "/messages";
                 }
                 getLocation();
             };
         });
     }
-
+    // handleSignIn();
     initializeDatabaseReferences();
 
-    //#region - geolocation
+    //------------------------------------------------
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
@@ -346,8 +355,8 @@ $(document).ready(function () {
             title: 'my location'
         });
     }
-    //#endregion
+
 
     //------------------------------------------------
-    console.log("v1.759");
+    console.log("v1.7582");
 });
