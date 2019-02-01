@@ -158,6 +158,7 @@ $(document).ready(function () {
     function handleSignIn() {
         console.log("doing handle sign-in");
         if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+            turnURLIntoUserInstancesPath();
             // Disable the sign-in button during async sign-in tasks.
             // document.getElementById("sign-in").disabled = true;
             // Get the email if available.
@@ -167,7 +168,8 @@ $(document).ready(function () {
             //     // user to provide the associated email again. For example:
             //     email = window.prompt('Please provide the email you\'d like to sign-in with for confirmation.');
             // }
-            if (email) {
+            if (1 == 2) {
+                // if (email) {
                 firebase.auth().signInWithEmailLink(email, window.location.href).then(function (result) {
                     turnURLIntoUserInstancesPath();
                     // Clear the URL to remove the sign-in link parameters.
@@ -348,5 +350,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.7575");
+    console.log("v1.7576");
 });
