@@ -398,7 +398,7 @@ $(document).ready(function () {
             initMapLatLong = userLatitude, userLongitude;
             var userLatLong = { lat: userLatitude, lng: userLongitude };
             let theZoom = 16;
-            let mapURL = encodeURI("https://maps.googleapis.com/maps/api/js?center=" + latitudeLongitude + "&zoom=" + theZoom + "&size=400x300&sensor=false&key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc&callback=initMap");
+            let mapURL = encodeURI("https://maps.googleapis.com/maps/api/js?center=" + userLatLong + "&zoom=" + theZoom + "&size=400x300&sensor=false&key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc&callback=initMap");
             mapDisplayField.html("<img src='" + mapURL + "'>");
             // var map = new google.maps.Map(mapDisplayField, {
             //     zoom: 16,
@@ -429,5 +429,5 @@ $(document).ready(function () {
 
     };
 
-    console.log("v1.782");
+    console.log("v1.783");
 });
