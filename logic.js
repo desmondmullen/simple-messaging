@@ -281,14 +281,18 @@ $(document).ready(function () {
                 // User is signed in.
                 userID = user.uid;
                 userSignedIn = true;
-                userIdentificationPath = "users/" + userID + "/identification";
-                userInstancesPath = "users/" + userID + "/instances/" + (+new Date());
-                userMessagesPath = userInstancesPath + "/messages";
+                if (theLink.indexOf("?") > 0) {
+                    turnURLIntoUserInstancesPath();
+                } else {
+                    userIdentificationPath = "users/" + userID + "/identification";
+                    userInstancesPath = "users/" + userID + "/instances/" + (+new Date());
+                    userMessagesPath = userInstancesPath + "/messages";
+                }
                 getLocation();
             };
         });
     }
-    handleSignIn();
+    // handleSignIn();
     initializeDatabaseReferences();
 
     //------------------------------------------------
@@ -350,5 +354,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.7576");
+    console.log("v1.7577");
 });
