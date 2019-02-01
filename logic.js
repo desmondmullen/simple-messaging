@@ -270,8 +270,8 @@ $(document).ready(function () {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 console.log("auth state changed: " + user.uid);
-                userID = user.uid;
-                let shortUserID = userID.substring(0, 4);
+                userID = user.uid; //when connecting by link, this will be the same user
+                let shortUserID = Math.floor(Math.random() * 1000 + 1000);
                 userName = prompt("Please enter a name to use for sending messages. If you don't choose one, we'll call you by your user ID", shortUserID);
                 if (userName == null || userName.trim() == "") {
                     userName = shortUserID;
@@ -359,5 +359,5 @@ $(document).ready(function () {
     //#endregion
 
     //------------------------------------------------
-    console.log("v1.773");
+    console.log("v1.774");
 });
