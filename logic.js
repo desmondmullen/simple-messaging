@@ -26,6 +26,8 @@ $(document).ready(function () {
     var geolocationListField = $("#geolocation-list");
     var geolocationStatusField = $("#geolocation-status");
     var mapDisplayField = $("#map-display");
+    var initMapLatLong;
+
 
     $(".add-entry").on("click", function (event) {
         event.preventDefault();
@@ -307,13 +309,13 @@ $(document).ready(function () {
     initializeDatabaseReferences();
 
     //#region - geolocation
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            geolocationStatusField.text("Geolocation is not supported by this browser");
-        }
-    }
+    // function getLocation() {
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(showPosition);
+    //     } else {
+    //         geolocationStatusField.text("Geolocation is not supported by this browser");
+    //     }
+    // }
 
     function showError(error) {
         switch (error.code) {
@@ -332,38 +334,80 @@ $(document).ready(function () {
         }
     }
 
-    function showPosition(position) {
-        userLatitude = position.coords.latitude;
-        userLongitude = position.coords.longitude;
-        let latitudeLongitude = userLatitude + "," + userLongitude;
-        let mapURL = encodeURI("https://maps.googleapis.com/maps/api/staticmap?center=" + latitudeLongitude + "&zoom=16&size=400x300&sensor=false&key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc");
+    // function showPosition(position) {
+    //     userLatitude = position.coords.latitude;
+    //     userLongitude = position.coords.longitude;
+    //     let latitudeLongitude = userLatitude + "," + userLongitude;
+    //     let mapURL = encodeURI("https://maps.googleapis.com/maps/api/staticmap?center=" + latitudeLongitude + "&zoom=16&size=400x300&sensor=false&key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc");
 
-        mapDisplayField.html("<img src='" + mapURL + "'>");
-        geolocationStatusField.html("Latitude: " + userLatitude +
-            ", Longitude: " + userLongitude);
-    }
+    //     mapDisplayField.html("<img src='" + mapURL + "'>");
+    //     geolocationStatusField.html("Latitude: " + userLatitude +
+    //         ", Longitude: " + userLongitude);
+    // }
 
     // the following line goes with the function below. This is from
     // https://developers.google.com/maps/documentation/javascript/examples/marker-simple
     // <script async defer src = "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script >
 
 
-    function initMap() {
-        var myLatLng = { lat: userLatitude, lng: userLongitude };
+    // function initMap() {
+    //     var myLatLng = { lat: userLatitude, lng: userLongitude };
 
-        var map = new google.maps.Map(document.getElementById("map-display"), {
-            zoom: 4,
-            center: myLatLng
-        });
+    //     var map = new google.maps.Map(document.getElementById("map-display"), {
+    //         zoom: 4,
+    //         center: myLatLng
+    //     });
 
-        var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            title: 'my location'
-        });
-    }
+    //     var marker = new google.maps.Marker({
+    //         position: myLatLng,
+    //         map: map,
+    //         title: 'my location'
+    //     });
+    // }
     //#endregion
 
-    //------------------------------------------------
-    console.log("v1.7773");
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            geolocationStatusField.text("Geolocation is not supported by this browser");
+        }
+    }
+
+    getLocation();
+
+    function showPosition(position) {
+        userLatitude = parseFloat(position.coords.latitude);
+        userLongitude = parseFloat(position.coords.longitude);
+        if (initMapLatLong != userLatitude, userLongitude) {
+            console.log("redoing initMap: " + initMapLatLong + " / " + userLatitude, userLongitude);
+            initMap();
+        } else {
+            console.log("show position: " + userLatitude, userLongitude);
+        }
+    }
+
+    function initMap() {
+        setTimeout(function () {
+            console.log("init map: " + userLatitude, userLongitude);
+            initMapLatLong = userLatitude, userLongitude;
+            var userLatLong = { lat: userLatitude, lng: userLongitude };
+            var map = new google.maps.Map(mapDisplayField, {
+                zoom: 16,
+                center: userLatLong
+            });
+            var marker = new google.maps.Marker({
+                position: userLatLong,
+                map: map,
+                title: 'You are here'
+            });
+            var userLatLong = { lat: userLatitude + .001, lng: userLongitude + .001 };
+            var marker = new google.maps.Marker({
+                position: userLatLong,
+                map: map,
+                title: 'She is here'
+            });
+        }, 500);
+    }
+    console.log("v1.7774");
 });

@@ -82,10 +82,9 @@ hr {
     color: white;
 }
 
-.map-display {
+/* .map-display {
     position: fixed;
     bottom: 3ch;
-    /*puts it just above bottom bar*/
     width: 100%;
     margin: 0 auto;
     left: 50%;
@@ -94,6 +93,13 @@ hr {
 
 #map-display {
     margin-left: 100px;
+}
+ */
+
+#map-display {
+    height: 100%;
+    z-index: -99;
+    opacity: 0.5;
 }
 
 #geolocation-list {
