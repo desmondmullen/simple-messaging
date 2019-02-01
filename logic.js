@@ -156,6 +156,7 @@ $(document).ready(function () {
     }
 
     function handleSignIn() {
+        console.log("doing handle sign-in");
         if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
             // Disable the sign-in button during async sign-in tasks.
             // document.getElementById("sign-in").disabled = true;
@@ -268,6 +269,7 @@ $(document).ready(function () {
 
     //initializeDatabaseReferences handles setting up UI event listeners and registering Firebase auth listeners:
     function initializeDatabaseReferences() {
+        console.log("initializing database");
         // var email = window.localStorage.getItem('emailForSignIn');
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -345,5 +347,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.7573");
+    console.log("v1.7574");
 });
