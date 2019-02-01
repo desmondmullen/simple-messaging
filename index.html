@@ -11,11 +11,21 @@
     <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase.js"></script>
     <script src="logic.js"></script>
     <link rel="stylesheet" href="style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&callback=initialize"></script>
+    <script>
+        var map;
+
+        function initialize() {
+            let mapOptions = { zoom: 7, mapTypeId: google.maps.MapTypeId.ROADMAP, center: chicago }
+            map = new google.maps.Map(document.getElementById("map-display"), mapOptions);
+        }
+
+    </script>
 </head>
 
 <body>
     <header>
-        <h3>Simple Messaging <small>v1.8</small></h3>
+        <h3>Simple Messaging <small>v1.82</small></h3>
     </header>
     <div id="application">
         <div id="signout-button"><button id="send-link">Send Link</button>

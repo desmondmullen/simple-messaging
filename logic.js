@@ -407,7 +407,7 @@ $(document).ready(function () {
             let theKey = "AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc";
             // let mapURL = encodeURI("https://maps.googleapis.com/maps/api/js?center=" + userLatLong + "&zoom=" + theZoom + "&size=400x300&sensor=false&key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc&callback=initMap");
             // mapDisplayField.html("<img src='" + mapURL + "'>");
-            var map = new google.maps.Map(mapDisplayField, {
+            map = new google.maps.Map(mapDisplayField, {
                 zoom: theZoom,
                 center: userLatLong,
                 key: theKey
@@ -437,5 +437,5 @@ $(document).ready(function () {
 
     };
 
-    console.log("v1.81");
+    console.log("v1.82");
 });
