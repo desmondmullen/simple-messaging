@@ -387,18 +387,23 @@ $(document).ready(function () {
         }
     }
 
-    let mapURL = encodeURI("https://maps.googleapis.com/maps/api/js?key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc&callback=initMap");
-    mapDisplayField.html("<img src='" + mapURL + "'>");
+    // let mapURL = encodeURI("https://maps.googleapis.com/maps/api/js?key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc&callback=initMap");
+    // mapDisplayField.html("<img src='" + mapURL + "'>");
+
+
 
     function initMap() {
         setTimeout(function () {
             console.log("init map: " + userLatitude, userLongitude);
             initMapLatLong = userLatitude, userLongitude;
             var userLatLong = { lat: userLatitude, lng: userLongitude };
-            var map = new google.maps.Map(mapDisplayField, {
-                zoom: 16,
-                center: userLatLong
-            });
+            let theZoom = 16;
+            let mapURL = encodeURI("https://maps.googleapis.com/maps/api/js?center=" + latitudeLongitude + "&zoom=" + theZoom + "&size=400x300&sensor=false&key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc&callback=initMap");
+            mapDisplayField.html("<img src='" + mapURL + "'>");
+            // var map = new google.maps.Map(mapDisplayField, {
+            //     zoom: 16,
+            //     center: userLatLong
+            // });
             var marker = new google.maps.Marker({
                 position: userLatLong,
                 map: map,
@@ -412,5 +417,5 @@ $(document).ready(function () {
             });
         }, 500);
     }
-    console.log("v1.78");
+    console.log("v1.781");
 });
