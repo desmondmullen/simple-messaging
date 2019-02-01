@@ -271,7 +271,6 @@ $(document).ready(function () {
     //#endregion
 
     function initializeDatabaseReferences() {
-        console.log("initializing database");
         let localStorageUIPath = window.localStorage.getItem("userInstancesPath");
         console.log("localStorageUIPath: " + localStorageUIPath);
         firebase.auth().onAuthStateChanged(function (user) {
@@ -337,7 +336,7 @@ $(document).ready(function () {
         userLatitude = position.coords.latitude;
         userLongitude = position.coords.longitude;
         let latitudeLongitude = userLatitude + "," + userLongitude;
-        let mapURL = encodeURI("https://maps.googleapis.com/maps/api/staticmap?center=" + latitudeLongitude + "&zoom=14&size=400x300&sensor=false&key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc");
+        let mapURL = encodeURI("https://maps.googleapis.com/maps/api/staticmap?center=" + latitudeLongitude + "&zoom=16&size=400x300&sensor=false&key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc");
 
         mapDisplayField.html("<img src='" + mapURL + "'>");
         geolocationStatusField.html("Latitude: " + userLatitude +
@@ -366,5 +365,5 @@ $(document).ready(function () {
     //#endregion
 
     //------------------------------------------------
-    console.log("v1.7772");
+    console.log("v1.7773");
 });
