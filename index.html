@@ -60,6 +60,7 @@
         function showPosition(position) {
             userLatitude = parseFloat(position.coords.latitude);
             userLongitude = parseFloat(position.coords.longitude);
+            initMapLatLong = userLatitude, userLongitude;
             if (initMapLatLong != userLatitude, userLongitude) {
                 console.log("redoing initMap: " + initMapLatLong + " / " + userLatitude, userLongitude);
                 initMap();
@@ -71,7 +72,7 @@
         function initMap() {
             setTimeout(function () {
                 // console.log("init map: " + userLatitude, userLongitude);
-                initMapLatLong = userLatitude, userLongitude;
+                // initMapLatLong = userLatitude, userLongitude;
                 var userLatLong = { lat: userLatitude, lng: userLongitude };
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 16,
@@ -90,7 +91,7 @@
                 });
             }, 3000);
         }
-        console.log("map in index v1.11");
+        console.log("map in index v1.12");
     </script>
 </body>
 
