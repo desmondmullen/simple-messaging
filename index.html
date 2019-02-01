@@ -21,6 +21,10 @@
             height: 100%;
         }
 
+        #map-display {
+            height: 100%;
+        }
+
         /* Optional: Makes the sample page fill the window. */
         html,
         body {
@@ -33,7 +37,7 @@
 </head>
 
 <body>
-    <!-- <header>
+    <header>
         <h3>Simple Messaging</h3>
     </header>
     <div id="application">
@@ -56,8 +60,8 @@
             <section class='copyright'>&copy; 2019 <a href='https://desmondmullen.com' target='_blank' class='copyright-link'>desmondmullen.com</a></section>
         </div>
     </div>
- -->
-    <div id="map"></div>
+
+    <!-- <div id="map"></div> -->
     <script>
         var userLatitude;
         var userLongitude;
@@ -91,7 +95,8 @@
                 console.log("init map: " + userLatitude, userLongitude);
                 initMapLatLong = userLatitude, userLongitude;
                 var userLatLong = { lat: userLatitude, lng: userLongitude };
-                var map = new google.maps.Map(document.getElementById('map'), {
+                var map = new google.maps.Map(document.getElementById("map-display"), {
+                    // var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 16,
                     center: userLatLong
                 });
@@ -108,7 +113,7 @@
                 });
             }, 3000);
         }
-        console.log("v2.7");
+        console.log("v2.8");
     </script>
 </body>
 
