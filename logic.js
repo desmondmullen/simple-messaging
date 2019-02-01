@@ -69,8 +69,8 @@ $(document).ready(function () {
         console.log(window.location.href);
         let theLink = window.location.href;
         // let theLink = "https://desmondmullen.com/simple-messaging/?users%2F0RwNml3nWsfvH1glmUP0uLeCkef1%2Finstances%2F1548992693601&apiKey=AIzaSyC3DrasuTKwDHLaaqV_hdlVnnLDqdTY1gE&oobCode=WMTR1Ooanm7-sUwKeUsohVPw1Mla-AtkbmT6nPiqaC0AAAFop2jJWg&mode=signIn&lang=en";
-        let theInstancePath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
-        console.log(decodeURIComponent(theInstancePath));
+        let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
+        console.log(decodeURIComponent(theInstancesPath));
 
     });
 
@@ -174,6 +174,13 @@ $(document).ready(function () {
             }
             if (email) {
                 firebase.auth().signInWithEmailLink(email, window.location.href).then(function (result) {
+
+                    let theLink = window.location.href;
+                    let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
+                    userInstancesPath = theInstancesPath
+                    console.log("new path: " + decodeURIComponent(theInstancesPath));
+
+
                     // Clear the URL to remove the sign-in link parameters.
                     if (history && history.replaceState) {
                         window.history.replaceState({}, document.title, window.location.href.split('?')[0]);
@@ -243,9 +250,7 @@ $(document).ready(function () {
         let actionCodeSettings = {
             // URL you want to redirect back to. The domain (www.example.com) for this URL
             // must be whitelisted in the Firebase Console.
-            // 'url': 'https://desmondmullen.com/simple-messaging/' + userInstancesPath, // Here we redirect back to this same page.
-            'url': "https://desmondmullen.com/simple-messaging/?" + userInstancesPath, // Here we redirect back to this same page.
-            // 'url': window.location.href, // Here we redirect back to this same page.
+            'url': "https://desmondmullen.com/simple-messaging/?" + userInstancesPath,
             'handleCodeInApp': true // This must be true.
         };
         firebase.auth().sendSignInLinkToEmail(theEmailAddress, actionCodeSettings).then(function () {
@@ -344,5 +349,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.755");
+    console.log("v1.7551");
 });
