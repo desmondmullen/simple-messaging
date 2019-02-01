@@ -33,7 +33,7 @@ $(document).ready(function () {
     });
 
     $("#send-link").on("click", function () {
-        console.log("user instances path: " + userInstancesPath);
+        console.log("sending user instances path: " + userInstancesPath);
         let theEmailAddressToSendLinkTo = prompt("Please enter the email address to send the link to:");
         if (theEmailAddressToSendLinkTo != null) {
             sendEmailLink(theEmailAddressToSendLinkTo);
@@ -85,7 +85,7 @@ $(document).ready(function () {
     });
 
     function emptyInputFields() {
-        console.log("emptying");
+        console.log("empty input fields");
         $("#input-message").val("");
         $("#message-display").text("");
         $("#geolocation-list").text("");
@@ -155,7 +155,7 @@ $(document).ready(function () {
     }
 
     function handleSignIn() {
-        console.log("doing handle sign-in");
+        console.log("handle sign-in");
         if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
             turnURLIntoUserInstancesPath();
             // Disable the sign-in button during async sign-in tasks.
@@ -203,15 +203,14 @@ $(document).ready(function () {
         if (connectedSnapshot.val()) {
             var theConnection = connectionsRef.push(true);
             theConnection.onDisconnect().remove();
-            console.log("number online 1: " + connectedSnapshot.numChildren());
         };
     });
     connectionsRef.on("value", function (connectionsSnapshot) {
-        console.log("number online 2: " + connectionsSnapshot.numChildren());
+        console.log("number online: " + connectionsSnapshot.numChildren());
     }); // Number of online users is the number of objects in the presence list.
 
     firebase.auth().signInAnonymously().catch(function (error) {
-        console.log("sign in anon");
+        console.log("sign in anonymously");
         let errorCode = error.code;
         let errorMessage = error.message;
         console.log("anonymous login error: " + errorCode, errorMessage);
@@ -271,9 +270,14 @@ $(document).ready(function () {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 console.log("auth state changed: " + user.uid);
-                userName = prompt("Please enter a name to use for sending messages:");
-                // User is signed in.
                 userID = user.uid;
+                let shortUserID = userID.substring(0, 4);
+                userName = prompt("Please enter a name to use for sending messages. If you don't choose one, we'll call you by your user ID", shortUserID);
+                if (userName == null || userName.trim() == "") {
+                    userName = shortUserID;
+                };
+                // User is signed in.
+                console.log(userName);
                 userSignedIn = true;
                 userIdentificationPath = "users/" + userID + "/identification";
                 if (window.location.href.indexOf("?") > 0) {
@@ -355,5 +359,5 @@ $(document).ready(function () {
     //#endregion
 
     //------------------------------------------------
-    console.log("v1.771");
+    console.log("v1.772");
 });
