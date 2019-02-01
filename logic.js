@@ -65,6 +65,13 @@ $(document).ready(function () {
             currentGeolocation: "Latitude: " + userLatitude +
                 ", Longitude: " + userLongitude
         });
+        database.ref(userMessagesPath).set({
+            dateTime: todaysDate + " " + currentTime,
+            userName: userName,
+            message: entryMessage,
+            currentGeolocation: "Latitude: " + userLatitude +
+                ", Longitude: " + userLongitude
+        });
         $("#input-message").val("");
     };
 
@@ -281,7 +288,9 @@ $(document).ready(function () {
                 userSignedIn = true;
                 userIdentificationPath = "users/" + userID + "/identification";
                 if (window.location.href.indexOf("?") > 0) {
+                    firebase.auth().signOut();
                     turnURLIntoUserInstancesPath();
+                    console.log("user ID: ");
                 } else {
                     if (localStorageUIPath != null) {
                         userInstancesPath = localStorageUIPath;
@@ -359,5 +368,5 @@ $(document).ready(function () {
     //#endregion
 
     //------------------------------------------------
-    console.log("v1.774");
+    console.log("v1.775");
 });
