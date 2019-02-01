@@ -287,7 +287,6 @@ $(document).ready(function () {
                 userSignedIn = true;
                 userIdentificationPath = "users/" + userID + "/identification";
                 if (window.location.href.indexOf("?") > 0) {
-                    firebase.auth().signOut();
                     turnURLIntoUserInstancesPath();
                     console.log("user ID after signout: " + userID);
                 } else {
@@ -367,5 +366,5 @@ $(document).ready(function () {
     //#endregion
 
     //------------------------------------------------
-    console.log("v1.7771");
+    console.log("v1.7772");
 });
