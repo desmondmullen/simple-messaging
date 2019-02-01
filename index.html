@@ -1,51 +1,37 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html>
 
 <head>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=yes'>
-    <meta charset="UTF-8">
-    <title>Simple Messaging</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase.js"></script>
-    <script src="logic.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple Markers</title>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc&callback=initMap">
     </script>
 </head>
 
 <body>
-    <header>
-        <h3>Simple Messaging</h3>
-    </header>
-    <div id="application">
-        <div id="signout-button"><button id="send-link">Send Link</button>
-            <!-- <button id="goto-instance">Go To Instance</button> -->
-            <button id="sign-out">Sign Out</button>
-            <!-- <button id="test-only">test</button> -->
-        </div>
-        <form class="input-form">
-            <label for="input-message" class="label-message">Message:</label> <input id="input-message" type="text"
-                name="input-message">
-            <div id="add-entry-display"><button id="add-entry" class="add-entry">Add Message</button>
-            </div>
-        </form>
-        <div id="message-display"></div>
-        <div class="map-display">
-            <div id="geolocation-list"></div>
-            <div id="map-display"></div>
-        </div>
-        <div class="bottom-bar">
-            <span id="geolocation-status">Updating geolocation...</span>
-            <section class='copyright'>&copy; 2019 <a href='https://desmondmullen.com' target='_blank' class='copyright-link'>desmondmullen.com</a></section>
-        </div>
-    </div>
+    <div id="map"></div>
     <script>
         var userLatitude;
         var userLongitude;
+        // var userLatitude = -25.363;
+        // var userLongitude = 131.044;
         var initMapLatLong;
-        var mapDisplayField = $("#map-display");
 
         function getLocation() {
             if (navigator.geolocation) {
@@ -60,7 +46,6 @@
         function showPosition(position) {
             userLatitude = parseFloat(position.coords.latitude);
             userLongitude = parseFloat(position.coords.longitude);
-            initMapLatLong = userLatitude, userLongitude;
             if (initMapLatLong != userLatitude, userLongitude) {
                 console.log("redoing initMap: " + initMapLatLong + " / " + userLatitude, userLongitude);
                 initMap();
@@ -71,8 +56,8 @@
 
         function initMap() {
             setTimeout(function () {
-                // console.log("init map: " + userLatitude, userLongitude);
-                // initMapLatLong = userLatitude, userLongitude;
+                console.log("init map: " + userLatitude, userLongitude);
+                initMapLatLong = userLatitude, userLongitude;
                 var userLatLong = { lat: userLatitude, lng: userLongitude };
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 16,
@@ -89,9 +74,9 @@
                     map: map,
                     title: 'She is here'
                 });
-            }, 3000);
+            }, 500);
         }
-        console.log("map in index v1.12");
+        console.log("v1.2257");
     </script>
 </body>
 
