@@ -92,14 +92,14 @@ hr {
     margin-left: -22.5%;
 }
 
+#map-display {
+    margin-left: 200px;
+}
+
 #geolocation-list {
     height: 7ch;
     white-space: nowrap;
     overflow: hidden;
-}
-
-#map-display {
-    margin-left: 200px;
 }
 
 .bottom-bar {
@@ -141,9 +141,9 @@ hr {
     label {
         margin: 5px 0px 0px 0px;
     }
-    .map-display {
+    /* .map-display {
         display: none;
-    }
+    } */
     .bottom-bar {
         width: 100%;
         height: 3.5ch;

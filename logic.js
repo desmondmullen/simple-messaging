@@ -22,23 +22,14 @@ $(document).ready(function () {
     var userMessagesPath;
     var userLatitude;
     var userLongitude;
+    var theLastMessageDateTime;
     var geolocationListField = $("#geolocation-list");
     var geolocationStatusField = $("#geolocation-status");
     var mapDisplayField = $("#map-display");
 
     $(".add-entry").on("click", function (event) {
         event.preventDefault();
-        let todaysDate = new Date().toLocaleDateString("en-US");
-        let currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        let entryMessage = $("#input-message").val().trim() + "<br>";
-        database.ref(userMessagesPath).set({
-            dateTime: todaysDate + " " + currentTime,
-            userName: userName,
-            message: entryMessage,
-            currentGeolocation: "Latitude: " + userLatitude +
-                ", Longitude: " + userLongitude
-        });
-        $("#input-message").val("");
+        doAddEntry(event);
     });
 
     $("#send-link").on("click", function () {
@@ -49,37 +40,43 @@ $(document).ready(function () {
         }
     });
 
-    // $("#goto-instance").on("click", function () {
-    //     console.log("path before: " + userInstancesPath);
-    //     console.log("path before: " + userMessagesPath);
-    //     tempUserInstancesPath = prompt("Please enter the instance address:");
-    //     if (tempUserInstancesPath != null) {
-    //         userInstancesPath = tempUserInstancesPath
-    //         userMessagesPath = userInstancesPath + "/messages";
-    //     }
-    //     console.log("path after: " + userInstancesPath);
-    //     console.log("path after: " + userMessagesPath);
-    // });
-
     $("#sign-out").on("click", function () {
         signOut();
         emptyInputFields();
     });
 
-    // $("#test-only").on("click", function () {
-    //     console.log("path: " + userInstancesPath);
-
-    // });
+    function doAddEntry(automatic) {
+        let todaysDate = new Date().toLocaleDateString("en-US");
+        let currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        if (!automatic) {
+            var entryMessage = $("#input-message").val().trim() + "<br>";
+        } else {
+            if (automatic == "connected") {
+                var entryMessage = userName + " has connected<br>";
+            } else {
+                var entryMessage = userName + " has disconnected<br>";
+            };
+        };
+        database.ref(userMessagesPath).set({
+            dateTime: todaysDate + " " + currentTime,
+            userName: userName,
+            message: entryMessage,
+            currentGeolocation: "Latitude: " + userLatitude +
+                ", Longitude: " + userLongitude
+        });
+        $("#input-message").val("");
+    };
 
     database.ref(userMessagesPath).on("value", function (snapshot) {
         let theMessageDateTime = snapshot.child(userMessagesPath + "/dateTime/").val();
         let theMessageUserName = snapshot.child(userMessagesPath + "/userName/").val();
         let theMessageMessage = snapshot.child(userMessagesPath + "/message/").val();
         let theCurrentGeolocation = snapshot.child(userMessagesPath + "/currentGeolocation/").val();
-        if (theMessageDateTime != null) {
+        if (theMessageDateTime != null && theMessageDateTime != theLastMessageDateTime) {
             $("#message-display").prepend("<span class='monospace'>" + theMessageDateTime + " <strong>" + theMessageUserName + "</strong>:</span> " + theMessageMessage);
+            theLastMessageDateTime = theMessageDateTime;
         };
-        if (theCurrentGeolocation != "Latitude: undefined, Longitude: undefined") {
+        if ((theCurrentGeolocation != "Latitude: undefined, Longitude: undefined") && (theCurrentGeolocation != null)) {
             geolocationListField.prepend(theMessageDateTime + " <strong>" + theMessageUserName + "</strong>: " + theCurrentGeolocation + "<br>");
         };
     }, function (errorObject) {
@@ -87,6 +84,7 @@ $(document).ready(function () {
     });
 
     function emptyInputFields() {
+        console.log("emptying");
         $("#input-message").val("");
         $("#message-display").text("");
         $("#geolocation-list").text("");
@@ -99,10 +97,7 @@ $(document).ready(function () {
         userMessagesPath = "";
         userLatitude = "";
         userLongitude = "";
-        window.history.replaceState({}, document.title, window.location.href.split('?')[0]);//cleans up sign-in link params
     };
-
-    emptyInputFields();
 
     //#region - authorization
     //--> how to fold a region //#region and //#endregion and //region and //endregion
@@ -226,22 +221,28 @@ $(document).ready(function () {
         let theLink = window.location.href;
         window.history.replaceState({}, document.title, window.location.href.split('?')[0]);//cleans up sign-in link params
         let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
-        userInstancesPath = decodeURIComponent(theInstancesPath);
-        userMessagesPath = userInstancesPath + "/messages";
-        console.log("new path: " + decodeURIComponent(theInstancesPath));
-    }
+        if (theInstancesPath != null) {
+            userInstancesPath = decodeURIComponent(theInstancesPath);
+            userMessagesPath = userInstancesPath + "/messages";
+            console.log("new path: " + decodeURIComponent(theInstancesPath));
+        } else {
+            console.log("new path was null, existing path is: " + userInstancesPath);
+        };
+    };
 
     function signOut() {
         firebase.auth().signOut();
         userSignedIn = false;
+        doAddEntry("disconnected");
         window.localStorage.removeItem("userInstancesPath");
         emptyInputFields();
+        window.history.replaceState({}, document.title, window.location.href.split('?')[0]);//cleans up sign-in link params
+        location = location;
     };
 
     function sendEmailLink(theEmailAddress) {
         let actionCodeSettings = {
-            // URL you want to redirect back to. The domain (www.example.com) for this URL
-            // must be whitelisted in the Firebase Console.
+            // URL must be whitelisted in the Firebase Console.
             'url': "https://desmondmullen.com/simple-messaging/?" + userInstancesPath,
             'handleCodeInApp': true // This must be true.
         };
@@ -265,6 +266,7 @@ $(document).ready(function () {
     function initializeDatabaseReferences() {
         console.log("initializing database");
         let localStorageUIPath = window.localStorage.getItem("userInstancesPath");
+        console.log("localStorageUIPath: " + localStorageUIPath);
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 console.log("auth state changed: " + user.uid);
@@ -276,7 +278,7 @@ $(document).ready(function () {
                 if (window.location.href.indexOf("?") > 0) {
                     turnURLIntoUserInstancesPath();
                 } else {
-                    if (localStorageUIPath == null) {
+                    if (localStorageUIPath != null) {
                         userInstancesPath = localStorageUIPath;
                     } else {
                         userInstancesPath = "users/" + userID + "/instances/" + (+new Date());
@@ -284,6 +286,9 @@ $(document).ready(function () {
                     userMessagesPath = userInstancesPath + "/messages";
                 }
                 getLocation();
+                setTimeout(function () {
+                    doAddEntry("connected");
+                }, 2000);
             };
         });
     }
@@ -320,7 +325,7 @@ $(document).ready(function () {
         userLatitude = position.coords.latitude;
         userLongitude = position.coords.longitude;
         let latitudeLongitude = userLatitude + "," + userLongitude;
-        let mapURL = encodeURI("https://maps.googleapis.com/maps/api/staticmap?center=" + latitudeLongitude + "&zoom=14&size=200x150&sensor=false&key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc");
+        let mapURL = encodeURI("https://maps.googleapis.com/maps/api/staticmap?center=" + latitudeLongitude + "&zoom=14&size=400x300&sensor=false&key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc");
 
         mapDisplayField.html("<img src='" + mapURL + "'>");
         geolocationStatusField.html("Latitude: " + userLatitude +
@@ -349,5 +354,5 @@ $(document).ready(function () {
     //#endregion
 
     //------------------------------------------------
-    console.log("v1.759");
+    console.log("v1.77");
 });
