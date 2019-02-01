@@ -290,7 +290,7 @@ $(document).ready(function () {
                 if (window.location.href.indexOf("?") > 0) {
                     firebase.auth().signOut();
                     turnURLIntoUserInstancesPath();
-                    console.log("user ID: ");
+                    console.log("user ID after signout: " + userID);
                 } else {
                     if (localStorageUIPath != null) {
                         userInstancesPath = localStorageUIPath;
@@ -368,5 +368,5 @@ $(document).ready(function () {
     //#endregion
 
     //------------------------------------------------
-    console.log("v1.775");
+    console.log("v1.776");
 });
