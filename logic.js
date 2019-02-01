@@ -282,8 +282,8 @@ $(document).ready(function () {
                 getLocation();
             };
         });
-        handleSignIn();
     }
+    handleSignIn();
     initializeDatabaseReferences();
 
     //------------------------------------------------
@@ -345,5 +345,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.7572");
+    console.log("v1.7573");
 });
