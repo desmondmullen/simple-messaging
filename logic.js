@@ -178,13 +178,7 @@ $(document).ready(function () {
             }
             if (email) {
                 firebase.auth().signInWithEmailLink(email, window.location.href).then(function (result) {
-
-                    let theLink = window.location.href;
-                    let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
-                    userInstancesPath = theInstancesPath;
-                    console.log("new path: " + decodeURIComponent(theInstancesPath));
-
-
+                    turnURLIntoUserInstancesPath();
                     // Clear the URL to remove the sign-in link parameters.
                     if (history && history.replaceState) {
                         window.history.replaceState({}, document.title, window.location.href.split('?')[0]);
@@ -199,6 +193,13 @@ $(document).ready(function () {
                 });
             }
         }
+    }
+
+    function turnURLIntoUserInstancesPath() {
+        let theLink = window.location.href;
+        let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
+        userInstancesPath = theInstancesPath;
+        console.log("new path: " + decodeURIComponent(theInstancesPath));
     }
 
     function sendPasswordReset() {
@@ -277,6 +278,7 @@ $(document).ready(function () {
 
     //initializeDatabaseReferences handles setting up UI event listeners and registering Firebase auth listeners:
     function initializeDatabaseReferences() {
+        handleSignIn();
         // var email = window.localStorage.getItem('emailForSignIn');
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -353,5 +355,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.757");
+    console.log("v1.7571");
 });
