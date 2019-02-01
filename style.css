@@ -97,10 +97,15 @@ hr {
 }
  */
 
+/* #map {
+    height: 100%;
+}
+ */
+
 #map-display {
     height: 100%;
-    z-index: -99;
-    opacity: 0.5;
+    /* z-index: -99; */
+    /* opacity: 0.5; */
 }
 
 #geolocation-list {
