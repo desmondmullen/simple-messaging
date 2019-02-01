@@ -388,26 +388,27 @@ $(document).ready(function () {
     }
 
     function initMap() {
-        setTimeout(function () {
-            console.log("init map: " + userLatitude, userLongitude);
-            initMapLatLong = userLatitude, userLongitude;
-            var userLatLong = { lat: userLatitude, lng: userLongitude };
-            var map = new google.maps.Map(mapDisplayField, {
-                zoom: 16,
-                center: userLatLong
-            });
-            var marker = new google.maps.Marker({
-                position: userLatLong,
-                map: map,
-                title: 'You are here'
-            });
-            var userLatLong = { lat: userLatitude + .001, lng: userLongitude + .001 };
-            var marker = new google.maps.Marker({
-                position: userLatLong,
-                map: map,
-                title: 'She is here'
-            });
-        }, 500);
+        alert("okay");
+        // setTimeout(function () {
+        //     console.log("init map: " + userLatitude, userLongitude);
+        //     initMapLatLong = userLatitude, userLongitude;
+        //     var userLatLong = { lat: userLatitude, lng: userLongitude };
+        //     var map = new google.maps.Map(mapDisplayField, {
+        //         zoom: 16,
+        //         center: userLatLong
+        //     });
+        //     var marker = new google.maps.Marker({
+        //         position: userLatLong,
+        //         map: map,
+        //         title: 'You are here'
+        //     });
+        //     var userLatLong = { lat: userLatitude + .001, lng: userLongitude + .001 };
+        //     var marker = new google.maps.Marker({
+        //         position: userLatLong,
+        //         map: map,
+        //         title: 'She is here'
+        //     });
+        // }, 500);
     }
-    console.log("v1.7774");
+    console.log("v1.7775");
 });
