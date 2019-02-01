@@ -65,12 +65,16 @@ $(document).ready(function () {
 
     $("#test-only").on("click", function () {
         console.log("path before: " + userInstancesPath);
-        console.log("path before: " + userMessagesPath);
-        console.log(window.location.href);
-        let theLink = window.location.href;
+        // console.log("path before: " + userMessagesPath);
+        // console.log(window.location.href);
+        // let theLink = window.location.href;
         // let theLink = "https://desmondmullen.com/simple-messaging/?users%2F0RwNml3nWsfvH1glmUP0uLeCkef1%2Finstances%2F1548992693601&apiKey=AIzaSyC3DrasuTKwDHLaaqV_hdlVnnLDqdTY1gE&oobCode=WMTR1Ooanm7-sUwKeUsohVPw1Mla-AtkbmT6nPiqaC0AAAFop2jJWg&mode=signIn&lang=en";
-        let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
-        console.log(decodeURIComponent(theInstancesPath));
+        // let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
+        // console.log(decodeURIComponent(theInstancesPath));
+        // setTimeout(function () {
+        //     console.log("path before: " + userInstancesPath);
+        // }, 3000);
+
 
     });
 
@@ -177,7 +181,7 @@ $(document).ready(function () {
 
                     let theLink = window.location.href;
                     let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
-                    userInstancesPath = theInstancesPath
+                    userInstancesPath = theInstancesPath;
                     console.log("new path: " + decodeURIComponent(theInstancesPath));
 
 
@@ -349,5 +353,5 @@ $(document).ready(function () {
 
 
     //------------------------------------------------
-    console.log("v1.7551");
+    console.log("v1.757");
 });
