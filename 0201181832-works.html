@@ -60,8 +60,9 @@
     <script>
         var userLatitude;
         var userLongitude;
+        // var userLatitude = -25.363;
+        // var userLongitude = 131.044;
         var initMapLatLong;
-        var mapDisplayField = $("#map-display");
 
         function getLocation() {
             if (navigator.geolocation) {
@@ -76,7 +77,6 @@
         function showPosition(position) {
             userLatitude = parseFloat(position.coords.latitude);
             userLongitude = parseFloat(position.coords.longitude);
-            initMapLatLong = userLatitude, userLongitude;
             if (initMapLatLong != userLatitude, userLongitude) {
                 console.log("redoing initMap: " + initMapLatLong + " / " + userLatitude, userLongitude);
                 initMap();
@@ -87,8 +87,8 @@
 
         function initMap() {
             setTimeout(function () {
-                // console.log("init map: " + userLatitude, userLongitude);
-                // initMapLatLong = userLatitude, userLongitude;
+                console.log("init map: " + userLatitude, userLongitude);
+                initMapLatLong = userLatitude, userLongitude;
                 var userLatLong = { lat: userLatitude, lng: userLongitude };
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 16,
@@ -105,9 +105,9 @@
                     map: map,
                     title: 'She is here'
                 });
-            }, 3000);
+            }, 500);
         }
-        console.log("v2");
+        console.log("v1.5");
     </script>
 </body>
 
