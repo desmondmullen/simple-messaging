@@ -387,6 +387,9 @@ $(document).ready(function () {
         }
     }
 
+    let mapURL = encodeURI("https://maps.googleapis.com/maps/api/js?key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc&callback=initMap");
+    mapDisplayField.html("<img src='" + mapURL + "'>");
+
     function initMap() {
         setTimeout(function () {
             console.log("init map: " + userLatitude, userLongitude);
@@ -409,5 +412,5 @@ $(document).ready(function () {
             });
         }, 500);
     }
-    console.log("v1.7777");
+    console.log("v1.78");
 });
