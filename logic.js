@@ -341,15 +341,10 @@ $(document).ready(function () {
                 map: map,
                 title: 'You are here'
             });
-            var userLatLong = { lat: userLatitude + .001, lng: userLongitude + .001 };
-            placeMarker(userLatLong);
-            var userLatLong = { lat: userLatitude + .0015, lng: userLongitude + .0015 };
-            placeMarker(userLatLong);
-            // var marker = new google.maps.Marker({
-            //     position: userLatLong,
-            //     map: map,
-            //     title: 'She is here'
-            // });
+            // var userLatLong = { lat: userLatitude + .001, lng: userLongitude + .001 };
+            // placeMarker(userLatLong);
+            // var userLatLong = { lat: userLatitude + .0015, lng: userLongitude + .0015 };
+            // placeMarker(userLatLong);
             geolocationStatusField.text("Latitude: " + userLatitude + ", Longitude: " + userLongitude);
 
         }, 500);
@@ -365,5 +360,5 @@ $(document).ready(function () {
     }
 
 
-    console.log("v1.975");
+    console.log("v1.976");
 });
