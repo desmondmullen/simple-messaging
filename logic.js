@@ -19,7 +19,7 @@ $(document).ready(function () {
     var userIdentificationPath;
     var userInstancesPath;
     var userMessagesPath;
-    var theLastMessageDateTime;
+    var theLastMessage;
     var geolocationListField = $("#geolocation-list");
     var geolocationStatusField = $("#geolocation-status");
     var map;
@@ -74,9 +74,9 @@ $(document).ready(function () {
         let theCurrentLat = parseFloat(snapshot.child(userMessagesPath + "/currentLat/").val());
         let theCurrentLong = parseFloat(snapshot.child(userMessagesPath + "/currentLong/").val());
         let theCurrentGeolocation = snapshot.child(userMessagesPath + "/currentGeolocation/").val();
-        if (theMessageDateTime != null && theMessageDateTime != theLastMessageDateTime) {
+        if (theMessageDateTime != null && theMessageDateTime + theMessageMessage != theLastMessage) {
             $("#message-display").prepend("<span class='monospace'>" + theMessageDateTime + " <strong>" + theMessageUserName + "</strong>:</span> " + theMessageMessage);
-            // theLastMessageDateTime = theMessageDateTime;
+            theLastMessage = theMessageDateTime + theMessageMessage;
         };
         if ((theCurrentGeolocation != "lat: undefined, lng: undefined") && (theCurrentGeolocation != null)) {
             console.log(theMessageDateTime, theMessageUserName, theCurrentGeolocation);
@@ -369,5 +369,5 @@ $(document).ready(function () {
     }
 
 
-    console.log("v1.9772");
+    console.log("v1.9773");
 });
