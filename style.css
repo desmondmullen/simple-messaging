@@ -38,7 +38,7 @@ p {
 
 .input-form {
     background-color: lightskyblue;
-    padding: 10px 0;
+    padding: 10px 0 0 0;
 }
 
 label {
@@ -128,11 +128,26 @@ hr {
         width: 100%;
         margin-left: 0;
     }
+    .input-form {
+        padding: 5px 0 0 0;
+    }
     button {
-        padding: 5px;
+        padding: 0;
     }
     label {
         margin: 5px 0px 0px 0px;
+    }
+    #signout-button {
+        text-align: center;
+        position: relative;
+        top: 0;
+        right: 0;
+        padding: 0;
+        margin: 0;
+    }
+    #signout-button button {
+        padding: 0;
+        margin: 0 10px;
     }
     .bottom-bar {
         width: 100%;
