@@ -307,61 +307,57 @@ $(document).ready(function () {
     initializeDatabaseReferences();
 
     //#region - geolocation
-    // function getLocation() {
-    //     if (navigator.geolocation) {
-    //         navigator.geolocation.getCurrentPosition(showPosition);
-    //     } else {
-    //         geolocationStatusField.text("Geolocation is not supported by this browser");
-    //     }
-    // }
+    var userLatitude;
+    var userLongitude;
+    var initMapLatLong;
+    var mapDisplayField = $("#map");
 
-    function showError(error) {
-        switch (error.code) {
-            case error.PERMISSION_DENIED:
-                geolocationStatusField.text("User denied the request for Geolocation");
-                break;
-            case error.POSITION_UNAVAILABLE:
-                geolocationStatusField.text("Location information is unavailable");
-                break;
-            case error.TIMEOUT:
-                geolocationStatusField.text("The request to get user location timed out");
-                break;
-            case error.UNKNOWN_ERROR:
-                geolocationStatusField.text("An unknown error occurred");
-                break;
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            geolocationStatusField.text("Geolocation is not supported by this browser");
         }
     }
 
-    // function showPosition(position) {
-    //     userLatitude = position.coords.latitude;
-    //     userLongitude = position.coords.longitude;
-    //     let latitudeLongitude = userLatitude + "," + userLongitude;
-    //     let mapURL = encodeURI("https://maps.googleapis.com/maps/api/staticmap?center=" + latitudeLongitude + "&zoom=16&size=400x300&sensor=false&key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc");
+    getLocation();
 
-    //     mapDisplayField.html("<img src='" + mapURL + "'>");
-    //     geolocationStatusField.html("Latitude: " + userLatitude +
-    //         ", Longitude: " + userLongitude);
-    // }
+    function showPosition(position) {
+        userLatitude = parseFloat(position.coords.latitude);
+        userLongitude = parseFloat(position.coords.longitude);
+        // initMapLatLong = userLatitude, userLongitude;
+        if (initMapLatLong != userLatitude, userLongitude) {
+            console.log("redoing initMap: " + initMapLatLong + " / " + userLatitude, userLongitude);
+            initMap();
+        } else {
+            console.log("show position: " + userLatitude, userLongitude);
+        }
+    }
 
-    // the following line goes with the function below. This is from
-    // https://developers.google.com/maps/documentation/javascript/examples/marker-simple
-    // <script async defer src = "https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script >
-
-
-    // function initMap() {
-    //     var myLatLng = { lat: userLatitude, lng: userLongitude };
-
-    //     var map = new google.maps.Map(document.getElementById("map-display"), {
-    //         zoom: 4,
-    //         center: myLatLng
-    //     });
-
-    //     var marker = new google.maps.Marker({
-    //         position: myLatLng,
-    //         map: map,
-    //         title: 'my location'
-    //     });
-    // }
+    function initMap() {
+        setTimeout(function () {
+            console.log("init map: " + userLatitude, userLongitude);
+            initMapLatLong = userLatitude, userLongitude;
+            var userLatLong = { lat: userLatitude, lng: userLongitude };
+            // var map = new google.maps.Map(document.getElementById("map-display"), {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 16,
+                center: userLatLong
+            });
+            var marker = new google.maps.Marker({
+                position: userLatLong,
+                map: map,
+                title: 'You are here'
+            });
+            var userLatLong = { lat: userLatitude + .001, lng: userLongitude + .001 };
+            var marker = new google.maps.Marker({
+                position: userLatLong,
+                map: map,
+                title: 'She is here'
+            });
+        }, 3000);
+    }
+    console.log("geol back in js");
     //#endregion
 
     console.log("v1.851");
