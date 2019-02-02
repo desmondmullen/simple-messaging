@@ -61,7 +61,7 @@ $(document).ready(function () {
             dateTime: todaysDate + " " + currentTime,
             userName: userName,
             message: entryMessage,
-            currentGeolocation: "lat: " + userLatitude + ", lng: " + userLongitude;
+            currentGeolocation: "lat: " + userLatitude + ", lng: " + userLongitude
             // currentGeolocation: "Latitude: " + userLatitude +
             //     ", Longitude: " + userLongitude
         });
