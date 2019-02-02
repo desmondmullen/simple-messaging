@@ -78,7 +78,7 @@ hr {
 }
 
 #message-display {
-    position: absolute;
+    position: fixed;
 }
 
 #map {

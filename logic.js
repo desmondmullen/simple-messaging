@@ -25,7 +25,6 @@ $(document).ready(function () {
     var geolocationStatusField = $("#geolocation-status");
     var map;
 
-
     $(".add-entry").on("click", function (event) {
         event.preventDefault();
         doAddEntry();
@@ -94,7 +93,6 @@ $(document).ready(function () {
         $("#input-message").val("");
         $("#message-display").text("");
         $("#geolocation-list").text("");
-        // $("#map-display").text("");
         userID = "";
         userSignedIn = "";
         userName = "";
@@ -365,5 +363,5 @@ $(document).ready(function () {
     }
 
 
-    console.log("v1.973");
+    console.log("v1.974");
 });
