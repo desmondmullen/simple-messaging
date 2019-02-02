@@ -14,8 +14,8 @@ p {
 
 #signout-button {
     text-align: right;
-    position: relative;
-    top: -60px;
+    position: fixed;
+    top: 105px;
     right: 5px;
 }
 
@@ -71,14 +71,15 @@ label {
 hr {
     margin: 5px;
     border-top: 1px solid black;
-    /* padding: 0; */
 }
 
 .copyright-link {
     color: white;
 }
 
-#message-display {}
+#message-display {
+    position: absolute;
+}
 
 #map {
     /* position: fixed; */
