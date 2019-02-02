@@ -23,7 +23,7 @@ $(document).ready(function () {
     var theLastMessageDateTime;
     var geolocationListField = $("#geolocation-list");
     var geolocationStatusField = $("#geolocation-status");
-    var marker;
+    var map;
 
 
     $(".add-entry").on("click", function (event) {
@@ -334,7 +334,7 @@ $(document).ready(function () {
             console.log("init map: " + userLatitude, userLongitude);
             initMapLatLong = userLatitude, userLongitude;
             var userLatLong = { lat: userLatitude, lng: userLongitude };
-            var map = new google.maps.Map(document.getElementById("map"), {
+            map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 16,
                 center: userLatLong
             });
@@ -364,5 +364,5 @@ $(document).ready(function () {
     }
 
 
-    console.log("v1.97");
+    console.log("v1.971");
 });
