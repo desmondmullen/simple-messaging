@@ -95,7 +95,7 @@ $(document).ready(function () {
         $("#input-message").val("");
         $("#message-display").text("");
         $("#geolocation-list").text("");
-        $("#map-display").text("");
+        // $("#map-display").text("");
         userID = "";
         userSignedIn = "";
         userName = "";
