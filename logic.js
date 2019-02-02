@@ -61,17 +61,9 @@ $(document).ready(function () {
             dateTime: todaysDate + " " + currentTime,
             userName: userName,
             message: entryMessage,
-            currentGeolocation: "lat: " + userLatitude + ", lng: " + userLongitude
-            // currentGeolocation: "Latitude: " + userLatitude +
-            //     ", Longitude: " + userLongitude
+            currentGeolocation: "lat: " + userLatitude +
+                ", lng: " + userLongitude
         });
-        // database.ref(userMessagesPath).set({
-        //     dateTime: todaysDate + " " + currentTime,
-        //     userName: userName,
-        //     message: entryMessage,
-        //     currentGeolocation: "Latitude: " + userLatitude +
-        //         ", Longitude: " + userLongitude
-        // });
         $("#input-message").val("");
     };
 
@@ -270,7 +262,6 @@ $(document).ready(function () {
         let errorMessage = error.message;
         alert('Error: ' + errorMessage);
         console.log("handle error: " + errorCode, errorMessage);
-        // document.getElementById("sign-in").disabled = false;
     }
     //#endregion
 
@@ -344,17 +335,17 @@ $(document).ready(function () {
                 zoom: 16,
                 center: userLatLong
             });
-            // var marker = new google.maps.Marker({
-            //     position: userLatLong,
-            //     map: map,
-            //     title: 'You are here'
-            // });
-            // var userLatLong = { lat: userLatitude + .001, lng: userLongitude + .001 };
-            // var marker = new google.maps.Marker({
-            //     position: userLatLong,
-            //     map: map,
-            //     title: 'She is here'
-            // });
+            var marker = new google.maps.Marker({
+                position: userLatLong,
+                map: map,
+                title: 'You are here'
+            });
+            var userLatLong = { lat: userLatitude + .001, lng: userLongitude + .001 };
+            var marker = new google.maps.Marker({
+                position: userLatLong,
+                map: map,
+                title: 'She is here'
+            });
             geolocationStatusField.text("Latitude: " + userLatitude + ", Longitude: " + userLongitude);
 
         }, 500);
@@ -370,5 +361,5 @@ $(document).ready(function () {
     }
 
 
-    console.log("v1.9");
+    console.log("v1.95");
 });

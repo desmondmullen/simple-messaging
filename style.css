@@ -15,7 +15,7 @@ p {
 #signout-button {
     text-align: right;
     position: relative;
-    top: -5px;
+    top: -60px;
     right: 5px;
 }
 
@@ -78,7 +78,10 @@ hr {
     color: white;
 }
 
+#message-display {}
+
 #map {
+    /* position: fixed; */
     height: 100vh;
     opacity: 0.5;
     background-color: black;
