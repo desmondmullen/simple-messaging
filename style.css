@@ -80,6 +80,7 @@ hr {
 
 #map {
     height: 100%;
+    opacity: 0.5;
 }
 
 #geolocation-list {

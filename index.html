@@ -39,19 +39,17 @@
         <div id="message-display"></div>
         <div id="geolocation-list"></div>
     </div>
-
+    <div id="map"></div>
     <div class="bottom-bar">
         <span id="geolocation-status">Updating geolocation...</span>
         <section class='copyright'>&copy; 2019 <a href='https://desmondmullen.com' target='_blank' class='copyright-link'>desmondmullen.com</a></section>
     </div>
     </div>
-
-    <div id="map"></div>
     <script>
         var userLatitude;
         var userLongitude;
         var initMapLatLong;
-        var mapDisplayField = $("#map-display");
+        var mapDisplayField = $("#map");
 
         function getLocation() {
             if (navigator.geolocation) {
@@ -98,7 +96,7 @@
                 });
             }, 3000);
         }
-        console.log("v3.8");
+        console.log("v3.9");
     </script>
 </body>
 
