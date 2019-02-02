@@ -50,9 +50,9 @@ $(document).ready(function () {
             var entryMessage = $("#input-message").val().trim() + "<br>";
         } else {
             if (automatic == "connected") {
-                var entryMessage = userName + " has connected<br>";
+                var entryMessage = "[connected]<br>";
             } else {
-                var entryMessage = userName + " has disconnected<br>";
+                var entryMessage = "[disconnected]<br>";
             };
         };
         database.ref(userMessagesPath).set({
