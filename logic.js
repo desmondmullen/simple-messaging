@@ -61,6 +61,8 @@ $(document).ready(function () {
             dateTime: todaysDate + " " + currentTime,
             userName: userName,
             message: entryMessage,
+            currentLat: userLatitude,
+            currentLong: userLongitude,
             currentGeolocation: "lat: " + userLatitude +
                 ", lng: " + userLongitude
         });
@@ -71,6 +73,8 @@ $(document).ready(function () {
         let theMessageDateTime = snapshot.child(userMessagesPath + "/dateTime/").val();
         let theMessageUserName = snapshot.child(userMessagesPath + "/userName/").val();
         let theMessageMessage = snapshot.child(userMessagesPath + "/message/").val();
+        let theCurrentLat = parseFloat(snapshot.child(userMessagesPath + "/currentLat/").val());
+        let theCurrentLong = parseFloat(snapshot.child(userMessagesPath + "/currentLong/").val());
         let theCurrentGeolocation = snapshot.child(userMessagesPath + "/currentGeolocation/").val();
         if (theMessageDateTime != null && theMessageDateTime != theLastMessageDateTime) {
             $("#message-display").prepend("<span class='monospace'>" + theMessageDateTime + " <strong>" + theMessageUserName + "</strong>:</span> " + theMessageMessage);
@@ -78,8 +82,7 @@ $(document).ready(function () {
         };
         if ((theCurrentGeolocation != "lat: undefined, lng: undefined") && (theCurrentGeolocation != null)) {
             geolocationListField.prepend(theMessageDateTime + " <strong>" + theMessageUserName + "</strong>: " + theCurrentGeolocation + "<br>");
-            let theLatLong = { theCurrentGeolocation };
-            // let theLatLong = { lat: userLatitude, lng: userLongitude };
+            let theLatLong = { lat: theCurrentLat, lng: theCurrentLong };
             placeMarker(theLatLong);
         };
     }, function (errorObject) {
@@ -361,5 +364,5 @@ $(document).ready(function () {
     }
 
 
-    console.log("v1.95");
+    console.log("v1.97");
 });
