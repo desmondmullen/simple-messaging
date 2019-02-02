@@ -73,6 +73,22 @@ hr {
     border-top: 1px solid black;
 }
 
+#geolocation-status {
+    position: fixed;
+    bottom: 0;
+    padding: 5px;
+    left: 10px;
+    color: white;
+}
+
+.copyright {
+    position: fixed;
+    bottom: 0;
+    padding: 5px;
+    right: 10px;
+    color: white;
+}
+
 .copyright-link {
     color: white;
 }
@@ -105,11 +121,6 @@ hr {
     left: 0;
     color: white;
     background-color: darkslategray;
-}
-
-#geolocation-status {
-    float: left;
-    padding-left: 10px;
 }
 
 @-ms-viewport {
@@ -149,14 +160,26 @@ hr {
         padding: 0;
         margin: 0 10px;
     }
+    #geolocation-status {
+        position: relative;
+        padding: 0;
+        left: 0;
+        font-size: x-small;
+    }
+    .copyright {
+        position: relative;
+        padding: 0;
+        right: 0;
+        font-size: x-small;
+    }
     .bottom-bar {
         width: 100%;
-        height: 3.5ch;
-        text-align: right;
-        font-size: small;
+        height: 5ch;
+        text-align: center;
+        font-size: x-small;
         position: fixed;
         bottom: 0;
-        padding: 5px;
+        /* padding: 5px; */
         left: 0;
         color: white;
         background-color: darkslategray;
