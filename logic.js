@@ -1,4 +1,3 @@
-//TODO: local storage
 //TODO: stop the echos
 
 $(document).ready(function () {
@@ -80,7 +79,8 @@ $(document).ready(function () {
             // theLastMessageDateTime = theMessageDateTime;
         };
         if ((theCurrentGeolocation != "lat: undefined, lng: undefined") && (theCurrentGeolocation != null)) {
-            geolocationListField.prepend(theMessageDateTime + " <strong>" + theMessageUserName + "</strong>: " + theCurrentGeolocation + "<br>");
+            console.log(theMessageDateTime, theMessageUserName, theCurrentGeolocation);
+            // geolocationListField.prepend(theMessageDateTime + " <strong>" + theMessageUserName + "</strong>: " + theCurrentGeolocation + "<br>");
             let theLatLong = { lat: theCurrentLat, lng: theCurrentLong };
             placeMarker(theLatLong, theMessageUserName);
         };
@@ -362,5 +362,5 @@ $(document).ready(function () {
     }
 
 
-    console.log("v1.977");
+    console.log("v1.9771");
 });
