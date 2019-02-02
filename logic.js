@@ -344,11 +344,12 @@ $(document).ready(function () {
                 title: 'You are here'
             });
             var userLatLong = { lat: userLatitude + .001, lng: userLongitude + .001 };
-            var marker = new google.maps.Marker({
-                position: userLatLong,
-                map: map,
-                title: 'She is here'
-            });
+            placeMarker(userLatLong);
+            // var marker = new google.maps.Marker({
+            //     position: userLatLong,
+            //     map: map,
+            //     title: 'She is here'
+            // });
             geolocationStatusField.text("Latitude: " + userLatitude + ", Longitude: " + userLongitude);
 
         }, 500);
@@ -364,5 +365,5 @@ $(document).ready(function () {
     }
 
 
-    console.log("v1.972");
+    console.log("v1.973");
 });
