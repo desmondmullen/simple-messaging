@@ -61,16 +61,17 @@ $(document).ready(function () {
             dateTime: todaysDate + " " + currentTime,
             userName: userName,
             message: entryMessage,
-            currentGeolocation: "Latitude: " + userLatitude +
-                ", Longitude: " + userLongitude
+            currentGeolocation: "lat: " + userLatitude + ", lng: " + userLongitude;
+            // currentGeolocation: "Latitude: " + userLatitude +
+            //     ", Longitude: " + userLongitude
         });
-        database.ref(userMessagesPath).set({
-            dateTime: todaysDate + " " + currentTime,
-            userName: userName,
-            message: entryMessage,
-            currentGeolocation: "Latitude: " + userLatitude +
-                ", Longitude: " + userLongitude
-        });
+        // database.ref(userMessagesPath).set({
+        //     dateTime: todaysDate + " " + currentTime,
+        //     userName: userName,
+        //     message: entryMessage,
+        //     currentGeolocation: "Latitude: " + userLatitude +
+        //         ", Longitude: " + userLongitude
+        // });
         $("#input-message").val("");
     };
 
@@ -83,8 +84,11 @@ $(document).ready(function () {
             $("#message-display").prepend("<span class='monospace'>" + theMessageDateTime + " <strong>" + theMessageUserName + "</strong>:</span> " + theMessageMessage);
             theLastMessageDateTime = theMessageDateTime;
         };
-        if ((theCurrentGeolocation != "Latitude: undefined, Longitude: undefined") && (theCurrentGeolocation != null)) {
+        if ((theCurrentGeolocation != "lat: undefined, lng: undefined") && (theCurrentGeolocation != null)) {
             geolocationListField.prepend(theMessageDateTime + " <strong>" + theMessageUserName + "</strong>: " + theCurrentGeolocation + "<br>");
+            let theLatLong = { theCurrentGeolocation };
+            // let theLatLong = { lat: userLatitude, lng: userLongitude };
+            placeMarker(theLatLong);
         };
     }, function (errorObject) {
         console.log("entries-error: " + errorObject.code);
@@ -340,22 +344,31 @@ $(document).ready(function () {
                 zoom: 16,
                 center: userLatLong
             });
-            var marker = new google.maps.Marker({
-                position: userLatLong,
-                map: map,
-                title: 'You are here'
-            });
-            var userLatLong = { lat: userLatitude + .001, lng: userLongitude + .001 };
-            var marker = new google.maps.Marker({
-                position: userLatLong,
-                map: map,
-                title: 'She is here'
-            });
+            // var marker = new google.maps.Marker({
+            //     position: userLatLong,
+            //     map: map,
+            //     title: 'You are here'
+            // });
+            // var userLatLong = { lat: userLatitude + .001, lng: userLongitude + .001 };
+            // var marker = new google.maps.Marker({
+            //     position: userLatLong,
+            //     map: map,
+            //     title: 'She is here'
+            // });
             geolocationStatusField.text("Latitude: " + userLatitude + ", Longitude: " + userLongitude);
 
         }, 500);
     }
     //#endregion
 
-    console.log("v1.86");
+    function placeMarker(theLatLong) {
+        var marker = new google.maps.Marker({
+            position: theLatLong,
+            map: map,
+            title: 'here'
+        });
+    }
+
+
+    console.log("v1.9");
 });
