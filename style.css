@@ -14,7 +14,7 @@ p {
 
 #signout-button {
     text-align: right;
-    position: fixed;
+    position: absolute;
     top: 105px;
     right: 5px;
 }
