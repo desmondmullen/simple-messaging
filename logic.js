@@ -221,8 +221,11 @@ $(document).ready(function () {
         // ...
     });
 
-    function turnURLIntoUserInstancesPath() {
-        let theLink = window.location.href;
+    function turnURLIntoUserInstancesPath(theLink) {
+        if (theLink == null || path == "" || path == undefined) {
+            theLink = window.location.href;
+        }
+        window.localStorage.setItem("theLastURLParameters", theLink);
         window.history.replaceState({}, document.title, window.location.href.split('?')[0]);//cleans up sign-in link params
         let theInstancesPath = (theLink.substring((theLink.indexOf("?") + 1), theLink.indexOf("&")));
         if (theInstancesPath != null) {
@@ -268,6 +271,7 @@ $(document).ready(function () {
 
     function initializeDatabaseReferences() {
         let localStorageUIPath = window.localStorage.getItem("userInstancesPath");
+        let localStorageLastURLParams = window.localStorage.getItem("theLastURLParameters");
         console.log("localStorageUIPath: " + localStorageUIPath);
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -292,6 +296,9 @@ $(document).ready(function () {
                     }
                     userMessagesPath = userInstancesPath + "/messages";
                 }
+                if (localStorageLastURLParams != null) {
+                    turnURLIntoUserInstancesPath(localStorageLastURLParams);
+                };
                 getLocation();
                 setTimeout(function () {
                     doAddEntry("connected");
@@ -362,5 +369,5 @@ $(document).ready(function () {
     }
 
 
-    console.log("v1.9771");
+    console.log("v1.9772");
 });
