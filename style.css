@@ -96,6 +96,8 @@ hr {
 #message-display {
     position: fixed;
     z-index: 99;
+    background-color: white;
+    padding: 0 10px;
 }
 
 #message-display:hover {
