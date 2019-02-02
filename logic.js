@@ -82,7 +82,7 @@ $(document).ready(function () {
         if ((theCurrentGeolocation != "lat: undefined, lng: undefined") && (theCurrentGeolocation != null)) {
             geolocationListField.prepend(theMessageDateTime + " <strong>" + theMessageUserName + "</strong>: " + theCurrentGeolocation + "<br>");
             let theLatLong = { lat: theCurrentLat, lng: theCurrentLong };
-            placeMarker(theLatLong);
+            placeMarker(theLatLong, theMessageUserName);
         };
     }, function (errorObject) {
         console.log("entries-error: " + errorObject.code);
@@ -336,11 +336,13 @@ $(document).ready(function () {
                 zoom: 16,
                 center: userLatLong
             });
-            var marker = new google.maps.Marker({
-                position: userLatLong,
-                map: map,
-                title: 'You are here'
-            });
+            placeMarker(userLatLong, "You are here");
+
+            // var marker = new google.maps.Marker({
+            //     position: userLatLong,
+            //     map: map,
+            //     title: 'You are here'
+            // });
             // var userLatLong = { lat: userLatitude + .001, lng: userLongitude + .001 };
             // placeMarker(userLatLong);
             // var userLatLong = { lat: userLatitude + .0015, lng: userLongitude + .0015 };
@@ -351,14 +353,14 @@ $(document).ready(function () {
     }
     //#endregion
 
-    function placeMarker(theLatLong) {
+    function placeMarker(theLatLong, title) {
         var marker = new google.maps.Marker({
             position: theLatLong,
             map: map,
-            title: 'here'
+            title: title
         });
     }
 
 
-    console.log("v1.976");
+    console.log("v1.977");
 });
