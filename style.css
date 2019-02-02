@@ -96,7 +96,10 @@ hr {
 #message-display {
     position: fixed;
     z-index: 99;
-    color: red;
+}
+
+#message-display:hover {
+    z-index: -99;
 }
 
 #map {
