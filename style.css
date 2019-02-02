@@ -95,18 +95,14 @@ hr {
 
 #message-display {
     position: fixed;
+    top: 215px;
     z-index: 99;
     background-color: white;
     padding: 0 10px;
 }
 
-#message-display:hover {
-    z-index: -99;
-}
-
 #map {
     height: 77%;
-    opacity: 0.5;
     background-color: gray;
 }
 
