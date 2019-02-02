@@ -9,10 +9,27 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase.js"></script>
-    <script src="logic.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <!-- <script src="logic.js"></script> -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPchfMQ9Do2TWSFQTKjKJlitT5y_Fdrdc&callback=initMap">
     </script>
+
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+               * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -32,10 +49,13 @@
         <div id="message-display"></div>
         <div id="geolocation-list"></div>
     </div>
+
     <div class="bottom-bar">
         <span id="geolocation-status">Updating geolocation...</span>
         <section class='copyright'>&copy; 2019 <a href='https://desmondmullen.com' target='_blank' class='copyright-link'>desmondmullen.com</a></section>
     </div>
+    </div>
+
     <div id="map"></div>
     <script>
         var userLatitude;
@@ -88,7 +108,7 @@
                 });
             }, 3000);
         }
-        console.log("v3.1");
+        console.log("v3.2");
     </script>
 </body>
 
