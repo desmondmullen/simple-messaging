@@ -96,6 +96,7 @@ hr {
 #message-display {
     position: fixed;
     z-index: 99;
+    color: red;
 }
 
 #map {
