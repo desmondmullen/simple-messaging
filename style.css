@@ -101,6 +101,11 @@ hr {
     height: 75%;
     opacity: 0.5;
     background-color: gray;
+    z-index: -99;
+}
+
+#map:hover {
+    z-index: 99;
 }
 
 #geolocation-list {
