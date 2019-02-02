@@ -325,12 +325,9 @@ $(document).ready(function () {
     function showPosition(position) {
         userLatitude = parseFloat(position.coords.latitude);
         userLongitude = parseFloat(position.coords.longitude);
-        // initMapLatLong = userLatitude, userLongitude;
         if (initMapLatLong != userLatitude, userLongitude) {
             console.log("redoing initMap: " + initMapLatLong + " / " + userLatitude, userLongitude);
             initMap();
-        } else {
-            console.log("show position: " + userLatitude, userLongitude);
         }
     }
 
@@ -354,9 +351,11 @@ $(document).ready(function () {
                 map: map,
                 title: 'She is here'
             });
+            geolocationStatusField.text("Latitude: " + userLatitude + ", Longitude: " + userLongitude);
+
         }, 500);
     }
     //#endregion
 
-    console.log("v1.853");
+    console.log("v1.86");
 });
