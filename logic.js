@@ -339,8 +339,7 @@ $(document).ready(function () {
             console.log("init map: " + userLatitude, userLongitude);
             initMapLatLong = userLatitude, userLongitude;
             var userLatLong = { lat: userLatitude, lng: userLongitude };
-            // var map = new google.maps.Map(document.getElementById("map-display"), {
-            var map = new google.maps.Map(document.getElementById('map'), {
+            var map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 16,
                 center: userLatLong
             });
@@ -355,10 +354,9 @@ $(document).ready(function () {
                 map: map,
                 title: 'She is here'
             });
-        }, 3000);
+        }, 500);
     }
-    console.log("geol back in js");
     //#endregion
 
-    console.log("v1.852");
+    console.log("v1.853");
 });
