@@ -324,6 +324,7 @@ $(document).ready(function () {
     }
 
     getLocation();
+    setInterval(function () { getLocation(); }, 300000);
 
     function showPosition(position) {
         userLatitude = parseFloat(position.coords.latitude);
@@ -344,16 +345,6 @@ $(document).ready(function () {
                 center: userLatLong
             });
             placeMarker(userLatLong, "You are here");
-
-            // var marker = new google.maps.Marker({
-            //     position: userLatLong,
-            //     map: map,
-            //     title: 'You are here'
-            // });
-            // var userLatLong = { lat: userLatitude + .001, lng: userLongitude + .001 };
-            // placeMarker(userLatLong);
-            // var userLatLong = { lat: userLatitude + .0015, lng: userLongitude + .0015 };
-            // placeMarker(userLatLong);
             geolocationStatusField.text("Latitude: " + userLatitude + ", Longitude: " + userLongitude);
 
         }, 500);
